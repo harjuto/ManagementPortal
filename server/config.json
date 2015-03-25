@@ -1,0 +1,10 @@
+{
+    "port" : 1337,
+    "securePort": 3100,
+    "staticUrl": "/static",
+    "distFolder": "../../../client/dist",
+    "security": {
+        "tokenLife" : 3600
+    }
+
+}
