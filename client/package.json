@@ -1,6 +1,6 @@
 {
-  "author": "Patrik Keinonen",
-  "name": "Phonebook",
+  "author": "Tomi Harju",
+  "name": "ManagementPortal",
   "version": "0.0.1",
   "engines": {
     "node": "*"
@@ -9,14 +9,20 @@
   "devDependencies": {
     "del": "^1.1.1",
     "gulp": "^3.8.10",
+    "gulp-cache": "^0.2.8",
     "gulp-changed": "^1.1.0",
     "gulp-concat": "^2.4.3",
+    "gulp-imagemin": "^2.2.1",
     "gulp-jshint": "^1.9.0",
+    "gulp-less": "^3.0.2",
+    "gulp-minify-css": "^1.0.0",
     "gulp-minify-html": "^0.1.8",
     "gulp-ng-html2js": "^0.1.8",
+    "gulp-react": "^3.0.1",
     "gulp-rename": "^1.2.0",
     "gulp-strip-debug": "^1.0.2",
     "gulp-uglify": "^1.0.2",
+    "gulp-using": "0.0.1",
     "gulp-watch": "^3.0.0",
     "jasmine-core": "^2.2.0",
     "karma": "^0.12.31",

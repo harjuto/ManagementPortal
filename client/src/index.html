@@ -1,15 +1,52 @@
-<html ng-app="app">
+<html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-	<title>Player Portal</title>
-	<link rel="stylesheet" href="static/css/bootstrap.css" />
-	<link rel="stylesheet" href="static/css/less/style.css" />
-</head>
-<body ng-controller="MainCtrl as main">
-	<div ng-view></div>
+	<title>Management Portal</title>
+	<link rel="stylesheet" href="static/css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="static/css/sb-admin-2.css"/>
+	<link rel="stylesheet" href="static/css/font-awesome.min.css"/>
+	<link rel="stylesheet" href="static/css/style.css"/>
+	<link rel="stylesheet" href="static/css/navbar.css"/>
 
 	<script src="static/app/vendor.min.js"> </script>
 	<script src="static/app/app.min.js"></script>
 	<script src="static/app/partials.min.js"></script>
+</head>
+<body ng-app="app">
+	<div id="wrapper" ng-controller="MainCtrl as main">
+	<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html"><img src="static/images/vulpine_header_web.png"></img></a>
+            </div>
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav in" id="side-menu">
+                        <li>
+                            <a ng-class="{ active : main.route.current.name === 'home'}" ng-click="goto('/')" ><i class="fa fa-dashboard"></i> Dashboard</a>
+                        </li>
+                        <li>
+                            <a ng-class="{ active : main.route.current.name === 'players'}" ng-click="goto('/players')"><i class="fa fa-group"></i> Players</a>
+                        </li>
+
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+				<div id="page-wrapper">
+					<div ng-view></div>
+				</div>
+</div>
+
+
+
 </body>
 </html>

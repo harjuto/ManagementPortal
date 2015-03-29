@@ -1,6 +1,6 @@
 {
-  "name": "lauantaipojat",
-  "version": "1.0.0",
+  "name": "ManagementPortal",
+  "version": "0.0.1",
   "ignore": [
     ".jshintrc",
     "**/*.txt"
@@ -12,9 +12,12 @@
     "angular-resource": "~1.3.13",
     "lodash": "~3.2.0",
     "angular-lodash": "~0.1.2",
+    "font-awesome": "~4.2.0",
+    "metisMenu": "~1.1.3",
     "fastclick": "~1.0.6",
     "angular-google-maps": "~2.0.12",
-    "ngstorage": "~0.3.0"
+    "ngstorage": "~0.3.0",
+    "react": "~0.13.1"
   },
   "devDependencies": {
     "angular-messages": "~1.3.13"

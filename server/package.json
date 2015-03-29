@@ -1,7 +1,7 @@
 {
-  "author": "Patrik Keinonen",
-  "name": "Phonebook",
-  "description": "Phonebook backend",
+  "author": "Tomi Harju",
+  "name": "Management Portal",
+  "description": "Last Planets Management Portal backend",
   "version": "0.0.1",
   "private": true,
   "dependencies": {
@@ -10,7 +10,6 @@
     "express": "*",
     "express-jwt": "*",
     "express-namespace": "^0.1.1",
-    "gulp": "^3.8.11",
     "lodash": "^2.4.1",
     "method-override": "^2.3.1",
     "mongoose": "*",

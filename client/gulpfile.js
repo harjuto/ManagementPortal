@@ -4,9 +4,15 @@ var gulp = require('gulp');
 var jshint = require('gulp-jshint');
 var changed = require('gulp-changed');
 var concat = require('gulp-concat');
+var imagemin = require('gulp-imagemin');
+var gulpcache = require('gulp-cache');
 var stripDebug = require('gulp-strip-debug');
 var uglify = require('gulp-uglify');
+var using = require('gulp-using');
+var less = require('gulp-less');
+var minifyCSS = require('gulp-minify-css');
 var del = require('del');
+var react = require('gulp-react');
 var watch = require('gulp-watch');
 var rename = require('gulp-rename');
 var ngHtml2Js = require('gulp-ng-html2js');
@@ -17,74 +23,102 @@ var appPath = 'src/**/*.js';
 var baseDir = 'src/**';
 
 var config = {
-	src: [appPath],
-	vendor: ['vendor/fastclick/lib/fastclick.js', 'vendor/angular/angular.js', 'vendor/angular-route/angular-route.js', 'vendor/angular-resource/angular-resource.js', 'vendor/lodash/lodash.js', 'vendor/jquery/dist/jquery.js', 'vendor/bootstrap/dist/js/bootstrap.js', 'vendor/ngstorage/ngStorage.js', 'vendor/angular-lodash/angular-lodash.js', 'vendor/angular-messages/angular-messages.js','vendor/angular-google-maps/dist/angular-google-maps.js'],
-	css: ['vendor/bootstrap/dist/css/bootstrap.css', 'vendor/bootstrap/dist/css/bootstrap.css.map', 'src/**/*.css'],
-	html: ['src/**/*.tpl.html'],
-	index: ['src/index.html'],
-	fonts: ['vendor/bootstrap/dist/fonts/**']
+  src: [appPath],
+  vendor: ['vendor/angular/angular.js',
+    'vendor/angular-route/angular-route.js',
+    'vendor/angular-resource/angular-resource.js',
+    'vendor/lodash/lodash.js',
+    'vendor/jquery/dist/jquery.js',
+    'vendor/bootstrap/dist/js/bootstrap.js',
+    'vendor/ngstorage/ngStorage.js',
+    'vendor/angular-lodash/angular-lodash.js',
+    'vendor/angular-messages/angular-messages.js',
+    'vendor/react/react.min.js'],
+  css: ['vendor/bootstrap/dist/css/bootstrap.min.css', 'vendor/bootstrap/dist/css/bootstrap.css.map', 'src/**/*.css', 'vendor/font-awesome/css/font-awesome.min.css'],
+  less: ['src/less/**/*.less'],
+  html: ['src/**/*.tpl.html'],
+  index: ['src/index.html'],
+  fonts: ['vendor/bootstrap/dist/fonts/**', 'vendor/font-awesome/fonts/**']
 };
 
-
-gulp.task('templates', ['scripts'], function(){
-	gulp.src("./src/**/*.tpl.html")
-    .pipe(ngHtml2Js({
-        moduleName: "app",
-        prefix: "/"
-    }))
-    .pipe(concat("partials.min.js"))
-    .pipe(uglify())
-    .pipe(rename({dirname: 'app/'}))
-    .pipe(gulp.dest("./dist/"));
+//Angular templates
+gulp.task('templates', ['scripts'], function() {
+  gulp.src("./src/**/*.tpl.html")
+  .pipe(ngHtml2Js({
+    moduleName: "app",
+    prefix: "/"
+  }))
+  .pipe(concat("partials.min.js"))
+  .pipe(uglify())
+  .pipe(rename({
+    dirname: 'app/'
+  }))
+  .pipe(gulp.dest("./dist/"));
 });
 
-// JS hint task
-gulp.task('jshint', function() {
-	// gulp.src(appPath)
-	// .pipe(jshint())
-	// .pipe(jshint.reporter('default'));
+// Concatenate & Minify JS
+gulp.task('scripts', function() {
+  return gulp.src(config.src)
+  .pipe(react())
+  .pipe(concat('app.js'))
+  .pipe(rename({
+    suffix: '.min'
+  }))
+  //.pipe(uglify())
+  .pipe(gulp.dest('./dist/app'));
 });
 
-// JS concat, strip debugging and minify
-gulp.task('scripts', ['clean'], function() {
-	gulp.src(config.src)
-	.pipe(concat('app.min.js'))
-	//.pipe(stripDebug())
-	//.pipe(uglify())
-	.pipe(gulp.dest('./dist/app/'));
+// Compile and concatenate less
+gulp.task('less', function() {
+  gulp.src(config.less)
+  .pipe(less())
+  .pipe(minifyCSS())
+  .pipe(gulp.dest('./dist/css'));
 });
 
-// JS concat, strip debugging and minify
-gulp.task('vendor', ['copy'], function() {
-	del.sync(['./dist/app/vendor.min.js'])
-
-	gulp.src(config.vendor)
-	.pipe(concat('vendor.min.js'))
-	.pipe(stripDebug())
-	.pipe(uglify())
-	.pipe(gulp.dest('./dist/app/'));
+// Process images
+gulp.task('images', function() {
+  return gulp.src('src/images/**/*')
+  .pipe(gulpcache(imagemin({
+    optimizationLevel: 5,
+    progressive: true,
+    interlaced: true
+  })))
+  .pipe(gulp.dest('dist/images'));
 });
 
 // Synchronously delete the output file(s)
-gulp.task('clean', ['jshint'], function(){
-	del.sync(['dist/**/*.js', 'dist/**/*.html', 'dist/**/*.css','!dist/app/vendor.min.js'])
+gulp.task('clean', function() {
+  del.sync(['dist/**/*.js', 'dist/**/*.html', 'dist/**/*.css', '!dist/app/vendor.min.js'])
 });
 
-gulp.task('copy', ['templates'], function(){
+// Copy index and vendor fonts/styles to dist package
+gulp.task('copy', ['templates', 'less', 'scripts'], function() {
 
-	gulp.src(config.fonts)
-	.pipe(gulp.dest('dist/fonts'))
+  gulp.src(config.fonts)
+  .pipe(gulp.dest('dist/fonts'))
 
-	gulp.src(config.index)
-	.pipe(gulp.dest('./dist/'));
+  gulp.src(config.index)
+  .pipe(gulp.dest('./dist/'));
 
-	gulp.src(config.css)
-	.pipe(gulp.dest('./dist/css/'));
+  gulp.src(config.css)
+  .pipe(gulp.dest('./dist/css/'));
+});
+
+// Create vendor.min from vendor packages
+gulp.task('vendor', ['copy'], function() {
+  del.sync(['./dist/app/vendor.min.js'])
+
+  gulp.src(config.vendor)
+  .pipe(concat('vendor.min.js'))
+  .pipe(stripDebug())
+  .pipe(uglify())
+  .pipe(gulp.dest('./dist/app/'));
 });
 
 //Set a default tasks
-gulp.task('default', ['vendor'], function(){});
+gulp.task('default', ['clean', 'vendor', 'less', 'images', 'templates'], function() {});
 
-gulp.task('watch', function(){
-	gulp.watch(baseDir, ['copy']);
+gulp.task('watch', function() {
+  gulp.watch(baseDir, ['copy']);
 });
