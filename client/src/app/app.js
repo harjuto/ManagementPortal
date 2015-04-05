@@ -1,15 +1,38 @@
 angular.module('app', [
-  'ngRoute',
-  'ConfigService',
-  'areas.home',
-  'areas.players'
-])
+    'ngRoute',
+    'ConfigService',
+    'security',
+    'page.frame',
+    'areas.dashboard',
+    'areas.home',
+    'areas.players'
+  ])
+  .config(['$httpProvider', function($httpProvider) {
+    $httpProvider.interceptors.push('TokenInceptor');
+  }])
 
-.controller("MainCtrl", ["$scope", "$location", "ConfigService", "$route", function($scope, $location, ConfigService, $route) {
+.run(function($rootScope, $window, $location, AuthenticationFactory) {
+  // when the page refreshes, check if the user is already logged in
+  AuthenticationFactory.check();
 
-    this.route = $route;
-    $scope.goto = function(path) {
-      $location.path(path);
+  $rootScope.$on("$routeChangeStart", function(event, nextRoute, currentRoute) {
+    if ((nextRoute.access && nextRoute.access.requiredLogin) && !AuthenticationFactory.isLogged) {
+      console.log("Login failed");
+      $location.path("/login");
+
+    } else {
+      // check if user object exists else fetch it. This is incase of a page refresh
+      if (!AuthenticationFactory.user) AuthenticationFactory.user = $window.sessionStorage.user;
+      if (!AuthenticationFactory.userRole) AuthenticationFactory.userRole = $window.sessionStorage.userRole;
     }
+  });
 
-  }]);
+  $rootScope.$on('$routeChangeSuccess', function(event, nextRoute, currentRoute) {
+    $rootScope.showMenu = AuthenticationFactory.isLogged;
+    $rootScope.role = AuthenticationFactory.userRole;
+    // if the user is already logged in, take him to the home page
+    if (AuthenticationFactory.isLogged == true && $location.path() == '/login') {
+      $location.path('/');
+    }
+  });
+});

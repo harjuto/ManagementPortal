@@ -1,10 +1,11 @@
 {
-    "port" : 1337,
-    "securePort": 3100,
-    "staticUrl": "/static",
-    "distFolder": "../../../client/dist",
-    "security": {
-        "tokenLife" : 3600
-    }
+  "port": 1337,
+  "securePort": 3100,
+  "staticUrl": "/static",
+  "distFolder": "../../../client/dist",
+  "errorsFolder": "../../../client/dist/errors",
+  "security": {
+    "tokenLife": 3600
+  }
 
 }

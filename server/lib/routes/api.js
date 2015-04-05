@@ -1,9 +1,6 @@
-var config = require('../config');
-var path = require('path');
-var log = require('../logger/logger')(module);
-
-
-
+var express = require("express");
+var router = express.Router();
+var security = require('./security.js');
 var resJson = [];
 for (var i = 0; i < 500; i++) {
   resJson.push({
@@ -11,11 +8,16 @@ for (var i = 0; i < 500; i++) {
     name: "Pekka " + i,
     dateCreated: new Date(),
     lastLogin: new Date()
-  })
-}
-
-exports.addRoutes = function(app) {
-  app.get('/api/players', function(req, res) {
-    res.json(resJson);
   });
 }
+
+//Secure api calls
+router.all('/*', security.securityCheck);
+
+//List players
+router.get('/players', function(req, res) {
+  console.log("Player list called");
+  res.json(resJson);
+});
+
+module.exports = router;

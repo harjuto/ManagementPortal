@@ -1,14 +1,16 @@
-var express = require('express');
+var express = require("express");
+var router = express.Router();
+var path = require('path');
 var compression = require('compression');
 var config = require('../config');
-var path = require('path');
 
-exports.addRoutes = function(app) {
-  app.use(config.get('staticUrl'), compression({
-    threshold: 512
-  }));
-  app.use(config.get('staticUrl'), express.static(path.resolve(__dirname, config.get('distFolder'))));
-  app.use(config.get('staticUrl'), function(req, res, next) {
-    res.send(404);
-  });
-};
+//Static resources (css, js, images)
+router.use(compression({
+  threshold: 512
+}));
+router.use(express.static(path.resolve(__dirname, config.get('distFolder'))));
+router.use(function(req, res, next) {
+  res.send(404);
+});
+
+module.exports = router;

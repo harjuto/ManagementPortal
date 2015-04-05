@@ -1,30 +1,31 @@
-// server.js
-var express = require('express');
-var morgan = require('morgan');
-var bodyParser = require('body-parser');
-var log = require('./lib/logger/logger')(module);
-var methodOverride = require('method-override');
-
+// Required Modules
+var express = require("express");
+var morgan = require("morgan");
+var bodyParser = require("body-parser");
+var jwt = require("jsonwebtoken");
 var config = require('./lib/config');
-
-require('express-namespace');
+var path = require("path");
 
 var app = express();
+var port = process.env.PORT || 1337;
 
-app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({
-  'extended': 'true'
+  extended: true
 }));
 app.use(bodyParser.json());
-app.use(bodyParser.json({
-  type: 'application/vnd.api+json'
-}));
-app.use(methodOverride());
+app.use(morgan("dev"));
+app.use(function(req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
+  next();
+});
+// routes ======================================================================
 
-require('./lib/routes/static').addRoutes(app);
-require('./lib/routes/app').addRoutes(app);
-require('./lib/routes/api').addRoutes(app);
 
-app.listen(config.get('port'), function() {
-  log.info('Express server listening on port ' + config.get('port'));
+require('./lib/routes/app.js')(app);
+
+// launch ======================================================================
+app.listen(port, function() {
+  console.log('Express server listening on port ' + config.get('port'));
 });
