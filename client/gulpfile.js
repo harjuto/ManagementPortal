@@ -62,10 +62,7 @@ gulp.task('templates', function() {
 gulp.task('scripts', function() {
   return gulp.src(config.src)
     .pipe(react())
-    .pipe(concat('app.js'))
-    .pipe(rename({
-      suffix: '.min'
-    }))
+    .pipe(concat('app.min.js'))
     //.pipe(uglify())
     .pipe(gulp.dest('./dist/app'));
 });

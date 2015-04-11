@@ -13,6 +13,6 @@ angular.module('areas.home', [])
 }])
 
 .controller('HomeCtrl', ['$scope', function($scope) {
-  var self = this;
+  var home = this;
 
 }]);

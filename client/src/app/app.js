@@ -7,7 +7,11 @@ angular.module('app', [
     'areas.home',
     'areas.players'
   ])
-  .config(['$httpProvider', function($httpProvider) {
+  .config(['$httpProvider', '$routeProvider', function($httpProvider, $routeProvider) {
+    $routeProvider.otherwise({
+      redirectTo: '/'
+    });
+
     $httpProvider.interceptors.push('TokenInceptor');
   }])
 
@@ -17,7 +21,6 @@ angular.module('app', [
 
   $rootScope.$on("$routeChangeStart", function(event, nextRoute, currentRoute) {
     if ((nextRoute.access && nextRoute.access.requiredLogin) && !AuthenticationFactory.isLogged) {
-      console.log("Login failed");
       $location.path("/login");
 
     } else {
@@ -28,8 +31,6 @@ angular.module('app', [
   });
 
   $rootScope.$on('$routeChangeSuccess', function(event, nextRoute, currentRoute) {
-    $rootScope.showMenu = AuthenticationFactory.isLogged;
-    $rootScope.role = AuthenticationFactory.userRole;
     // if the user is already logged in, take him to the home page
     if (AuthenticationFactory.isLogged == true && $location.path() == '/login') {
       $location.path('/');

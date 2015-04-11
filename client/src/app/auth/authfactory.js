@@ -42,7 +42,7 @@
   };
   UserAuthFactory.$inject = ["$window", "$location", "$http", "AuthenticationFactory"];
 
-  var TokenInceptor = function($q, $window) {
+  var TokenInceptor = function($q, $window, $location, AuthenticationFactory) {
     return {
       request: function(config) {
         config.headers = config.headers || {};
@@ -56,10 +56,23 @@
 
       response: function(response) {
         return response || $q.when(response);
+      },
+      responseError: function(error) {
+        if (error.status === 401) {
+          AuthenticationFactory.isLogged = false;
+          delete AuthenticationFactory.user;
+          delete $window.sessionStorage.token;
+          delete $window.sessionStorage.user;
+          $location.path("/login");
+          return $q.reject(error);
+
+        } else {
+          return $q.reject(error);
+        }
       }
     };
   };
-  TokenInceptor.$inject = ["$q", "$window"];
+  TokenInceptor.$inject = ["$q", "$window", "$location", "AuthenticationFactory"];
 
   angular.module('security')
     .factory("TokenInceptor", TokenInceptor)

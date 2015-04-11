@@ -7,7 +7,7 @@ var jwt = require("jsonwebtoken");
 router.post('/authenticate', function(req, res) {
   if (req.body.email === user.email && req.body.password === user.password) {
     var token = jwt.sign(user, require('../config/key.js')(), {
-      expiresInMinutes: 10
+      expiresInMinutes: 60
     });
     res.json({
       type: true,
@@ -26,7 +26,6 @@ router.post('/authenticate', function(req, res) {
 module.exports = {
   router: router,
   securityCheck: function(req, res, next) {
-    console.log("Calling api ");
     var token = req.headers.authorization;
     if (typeof token !== 'undefined') {
       jwt.verify(token, require('../config/key.js')(), function(err, decoded) {

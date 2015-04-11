@@ -5,7 +5,6 @@ var bodyParser = require("body-parser");
 var jwt = require("jsonwebtoken");
 var config = require('./lib/config');
 var path = require("path");
-
 var app = express();
 var port = process.env.PORT || 1337;
 
