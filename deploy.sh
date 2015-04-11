@@ -44,7 +44,7 @@ if [[ ! -n "$NEXT_MANIFEST_PATH" ]]; then
 fi
 
 if [[ ! -n "$DEPLOYMENT_TARGET" ]]; then
-  DEPLOYMENT_TARGET=$ARTIFACTS/wwwroot
+  DEPLOYMENT_TARGET=$ARTIFACTS/wwwroot/server
 else
   KUDU_SERVICE=true
 fi
@@ -98,7 +98,7 @@ selectNodeVersion () {
 # Deployment
 # ----------
 
-echo Handling node.js grunt deployment.
+echo Handling node.js gulp deployment.
 
 # 1. Select node version
 selectNodeVersion
