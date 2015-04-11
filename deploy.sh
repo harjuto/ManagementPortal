@@ -104,13 +104,13 @@ echo Handling node.js grunt deployment.
 selectNodeVersion
 
 # 2. Install npm packages
-if [ -e "$DEPLOYMENT_SOURCE/package.json" ]; then
+if [ -e "$DEPLOYMENT_SOURCE/server/package.json" ]; then
   eval $NPM_CMD install
   exitWithMessageOnError "npm failed"
 fi
 
 # 3. Install bower packages
-if [ -e "$DEPLOYMENT_SOURCE/bower.json" ]; then
+if [ -e "$DEPLOYMENT_SOURCE/client/bower.json" ]; then
   eval $NPM_CMD install bower
   exitWithMessageOnError "installing bower failed"
   ./node_modules/.bin/bower install
@@ -118,7 +118,7 @@ if [ -e "$DEPLOYMENT_SOURCE/bower.json" ]; then
 fi
 
 # 4. Run gulp
-if [ -e "$DEPLOYMENT_SOURCE/Gruntfile.js" ]; then
+if [ -e "$DEPLOYMENT_SOURCE/client/gulpfile.js" ]; then
   eval $NPM_CMD install gulp
   exitWithMessageOnError "installing gulp failed"
   ./node_modules/.bin/gulp --no-color default
