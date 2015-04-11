@@ -77,7 +77,7 @@ selectNodeVersion () {
       NODE_EXE=`cat "$DEPLOYMENT_TEMP/__nodeVersion.tmp"`
       exitWithMessageOnError "getting node version failed"
     fi
-    
+
     if [[ -e "$DEPLOYMENT_TEMP/.tmp" ]]; then
       NPM_JS_PATH=`cat "$DEPLOYMENT_TEMP/__npmVersion.tmp"`
       exitWithMessageOnError "getting npm version failed"
@@ -98,24 +98,36 @@ selectNodeVersion () {
 # Deployment
 # ----------
 
-echo Handling node.js deployment.
+echo Handling node.js grunt deployment.
 
-# 1. KuduSync
-if [[ "$IN_PLACE_DEPLOYMENT" -ne "1" ]]; then
-  "$KUDU_SYNC_CMD" -v 50 -f "$DEPLOYMENT_SOURCE" -t "$DEPLOYMENT_TARGET" -n "$NEXT_MANIFEST_PATH" -p "$PREVIOUS_MANIFEST_PATH" -i ".git;.hg;.deployment;deploy.sh"
-  exitWithMessageOnError "Kudu Sync failed"
-fi
-
-# 2. Select node version
+# 1. Select node version
 selectNodeVersion
 
-# 3. Install npm packages
-if [ -e "$DEPLOYMENT_TARGET/package.json" ]; then
-  cd "$DEPLOYMENT_TARGET"
-  eval $NPM_CMD install --production
+# 2. Install npm packages
+if [ -e "$DEPLOYMENT_SOURCE/package.json" ]; then
+  eval $NPM_CMD install
   exitWithMessageOnError "npm failed"
-  cd - > /dev/null
 fi
+
+# 3. Install bower packages
+if [ -e "$DEPLOYMENT_SOURCE/bower.json" ]; then
+  eval $NPM_CMD install bower
+  exitWithMessageOnError "installing bower failed"
+  ./node_modules/.bin/bower install
+  exitWithMessageOnError "bower failed"
+fi
+
+# 4. Run gulp
+if [ -e "$DEPLOYMENT_SOURCE/Gruntfile.js" ]; then
+  eval $NPM_CMD install gulp
+  exitWithMessageOnError "installing gulp failed"
+  ./node_modules/.bin/gulp --no-color default
+  exitWithMessageOnError "gulp failed"
+fi
+
+# 5. KuduSync to Target
+"$KUDU_SYNC_CMD" -v 500 -f "$DEPLOYMENT_SOURCE/dist" -t "$DEPLOYMENT_TARGET" -n "$NEXT_MANIFEST_PATH" -p "$PREVIOUS_MANIFEST_PATH" -i ".git;.hg;.deployment;deploy.sh"
+exitWithMessageOnError "Kudu Sync to Target failed"
 
 ##################################################################################################################################
 
