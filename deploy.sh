@@ -44,7 +44,7 @@ if [[ ! -n "$NEXT_MANIFEST_PATH" ]]; then
 fi
 
 if [[ ! -n "$DEPLOYMENT_TARGET" ]]; then
-  DEPLOYMENT_TARGET=$ARTIFACTS/wwwroot/server
+  DEPLOYMENT_TARGET=$ARTIFACTS/wwwroot/server/
 else
   KUDU_SERVICE=true
 fi
@@ -102,13 +102,13 @@ echo Handling node.js gulp deployment.
 
 # 1. Select node version
 selectNodeVersion
-
+echo 'Node version selected'
 # 2. Install npm packages
 if [ -e "$DEPLOYMENT_SOURCE/server/package.json" ]; then
   eval $NPM_CMD install
   exitWithMessageOnError "npm failed"
 fi
-
+echo 'npm install finished'
 # 3. Install bower packages
 if [ -e "$DEPLOYMENT_SOURCE/client/bower.json" ]; then
   eval $NPM_CMD install bower
@@ -116,7 +116,7 @@ if [ -e "$DEPLOYMENT_SOURCE/client/bower.json" ]; then
   ./node_modules/.bin/bower install
   exitWithMessageOnError "bower failed"
 fi
-
+echo 'Bower install finished'
 # 4. Run gulp
 if [ -e "$DEPLOYMENT_SOURCE/client/gulpfile.js" ]; then
   eval $NPM_CMD install gulp
@@ -124,7 +124,7 @@ if [ -e "$DEPLOYMENT_SOURCE/client/gulpfile.js" ]; then
   ./node_modules/.bin/gulp --no-color default
   exitWithMessageOnError "gulp failed"
 fi
-
+echo 'Gulp install finished'
 # 5. KuduSync to Target
 "$KUDU_SYNC_CMD" -v 500 -f "$DEPLOYMENT_SOURCE/dist" -t "$DEPLOYMENT_TARGET" -n "$NEXT_MANIFEST_PATH" -p "$PREVIOUS_MANIFEST_PATH" -i ".git;.hg;.deployment;deploy.sh"
 exitWithMessageOnError "Kudu Sync to Target failed"
