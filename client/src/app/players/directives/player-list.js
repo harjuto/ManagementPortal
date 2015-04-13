@@ -15,13 +15,14 @@ var ListPlayersDirective = function(PlayerComponents) {
           }
 
           />, element[0]);
+
           scope.$watchCollection('players', function(newValue, oldValue) {
             tableElement.setState({
               players: newValue
             });
           })
         }
-      }
+      };
     };
 
     ListPlayersDirective.$inject = ["PlayerComponents"];

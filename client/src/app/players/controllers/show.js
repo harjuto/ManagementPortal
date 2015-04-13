@@ -8,4 +8,5 @@
 
   angular.module('areas.players.controllers')
     .controller("PlayerShowCtrl", ShowCtrl);
+
 })();
