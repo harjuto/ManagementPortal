@@ -4,7 +4,6 @@ var gulp = require('gulp');
 var jshint = require('gulp-jshint');
 var changed = require('gulp-changed');
 var concat = require('gulp-concat');
-var imagemin = require('gulp-imagemin');
 var gulpcache = require('gulp-cache');
 var stripDebug = require('gulp-strip-debug');
 var uglify = require('gulp-uglify');
@@ -80,11 +79,6 @@ gulp.task('less', function() {
 // Process images
 gulp.task('images', function() {
   return gulp.src('src/images/**/*')
-    .pipe(gulpcache(imagemin({
-      optimizationLevel: 5,
-      progressive: true,
-      interlaced: true
-    })))
     .pipe(gulp.dest('./dist/images'));
 });
 
