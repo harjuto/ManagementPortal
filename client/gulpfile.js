@@ -60,11 +60,12 @@ gulp.task('templates', function() {
 
 // Concatenate & Minify JS
 gulp.task('scripts', function() {
-  return gulp.src(config.src)
+  gulp.src(config.src)
     .pipe(react())
     .pipe(concat('app.min.js'))
     //.pipe(uglify())
     .pipe(gulp.dest('./dist/app'));
+
 });
 
 // Compile and concatenate less

@@ -14,6 +14,7 @@ angular.module('areas.players.services', [])
 
       return defer.promise;
     };
+
     PlayerService.show = function(id) {
       $http.get(ConfigService.config.apiBaseURL + 'players/' + id);
     };
