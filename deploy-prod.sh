@@ -1,7 +1,7 @@
 #!/bin/bash
 cd /var/portal
 rm -rf ManagementPortal
-git clone https://github.com/harjuto/ManagementPortal.git
+git clone https://github.com/harjuto/ManagementPortal.git --branch master
 echo 'Cloning latest version...'
 cd ManagementPortal
 cd server
