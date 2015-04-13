@@ -5,7 +5,7 @@ angular.module('areas.players.services', [])
     PlayerService.list = function() {
       var defer = $q.defer();
 
-      $http.get(ConfigService.config.apiBaseURL + 'players').
+      $http.get('/api/players').
       success(function(result) {
         defer.resolve(result);
       }).error(function(result) {
@@ -16,7 +16,7 @@ angular.module('areas.players.services', [])
     };
 
     PlayerService.show = function(id) {
-      $http.get(ConfigService.config.apiBaseURL + 'players/' + id);
+      $http.get('api/players/' + id);
     };
 
 

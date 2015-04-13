@@ -20,7 +20,7 @@
   var UserAuthFactory = function($window, $location, $http, AuthenticationFactory) {
     return {
       login: function(email, password) {
-        return $http.post('http://localhost:1337/security/authenticate', {
+        return $http.post('/security/authenticate', {
           email: email,
           password: password
         });
