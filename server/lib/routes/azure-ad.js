@@ -33,7 +33,7 @@
   // some resource they own.
   router.post('/auth', function(req, res) {
     //req.setHeader('Access-Control-Allow-Origin', '*');
-
+    console.log("Calling auth");
     crypto.randomBytes(48, function(ex, buf) {
       var token = buf.toString('base64').replace(/\//g, '_').replace(/\+/g, '-');
 
@@ -48,6 +48,7 @@
   // AuthenticationContext and retrieves an access token that can be used to access the
   // user owned resource.
   router.get('/getAToken', function(req, res) {
+    console.log("Calling get a token");
     if (req.cookies.authstate !== req.query.state) {
       res.send('error: state does not match');
     }
