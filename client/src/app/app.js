@@ -15,25 +15,24 @@ angular.module('app', [
     $httpProvider.interceptors.push('TokenInceptor');
   }])
 
-.run(function($rootScope, $window, $location, AuthenticationFactory) {
+.run(['$rootScope', '$window', '$location', 'AuthenticationStorage', function($rootScope, $window, $location, AuthenticationStorage) {
   // when the page refreshes, check if the user is already logged in
-  AuthenticationFactory.check();
+  AuthenticationStorage.check();
 
   $rootScope.$on("$routeChangeStart", function(event, nextRoute, currentRoute) {
-    if ((nextRoute.access && nextRoute.access.requiredLogin) && !AuthenticationFactory.isLogged) {
+    if ((nextRoute.access && nextRoute.access.requiredLogin) && !AuthenticationStorage.isLogged) {
       $location.path("/login");
 
     } else {
       // check if user object exists else fetch it. This is incase of a page refresh
-      if (!AuthenticationFactory.user) AuthenticationFactory.user = $window.sessionStorage.user;
-      if (!AuthenticationFactory.userRole) AuthenticationFactory.userRole = $window.sessionStorage.userRole;
+      if (!AuthenticationStorage.user) AuthenticationStorage.user = $window.sessionStorage.user;
     }
   });
 
   $rootScope.$on('$routeChangeSuccess', function(event, nextRoute, currentRoute) {
     // if the user is already logged in, take him to the home page
-    if (AuthenticationFactory.isLogged == true && $location.path() == '/login') {
+    if (AuthenticationStorage.isLogged === true && $location.path() == '/login') {
       $location.path('/');
     }
   });
-});
+}]);

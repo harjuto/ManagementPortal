@@ -17,12 +17,12 @@
     <li class="dropdown" ng-if="header.authFactory.isLogged">
       <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
         <i class="fa fa-user fa-fw"></i>
-        <span ng-bind="header.authFactory.user"></span>
+        <span ng-bind="header.authStorage.user"></span>
         <i class="fa fa-caret-down"></i>
       </a>
       <ul class="dropdown-menu dropdown-user">
         <li>
-          <span class="header-dropdown-link" ng-click="header.logout()"><i class="fa fa-sign-out fa-fw"></i> Logout</span>
+          <a href ng-click="header.logout()"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
         </li>
       </ul>
       <!-- /.dropdown-user -->

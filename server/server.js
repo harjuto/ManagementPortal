@@ -5,9 +5,11 @@ var bodyParser = require("body-parser");
 var jwt = require("jsonwebtoken");
 var config = require('./lib/config');
 var path = require("path");
+var cookieParser = require('cookie-parser');
 var app = express();
 var port = process.env.PORT || 1337;
 
+app.use(cookieParser());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
@@ -19,9 +21,8 @@ app.use(function(req, res, next) {
   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
   next();
 });
+
 // routes ======================================================================
-
-
 require('./lib/routes/app.js')(app);
 
 // launch ======================================================================

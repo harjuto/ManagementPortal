@@ -1,4 +1,4 @@
-var LoginCtrl = function($window, $location, UserAuthFactory, AuthenticationFactory) {
+var LoginCtrl = function($window, $location, UserAuthFactory, AuthenticationStorage) {
   var login = this;
   login.user = {
     email: undefined,
@@ -8,9 +8,9 @@ var LoginCtrl = function($window, $location, UserAuthFactory, AuthenticationFact
   login.login = function() {
     if (login.user.email !== undefined && login.user.password !== undefined) {
       UserAuthFactory.login(login.user.email, login.user.password).success(function(data) {
-        AuthenticationFactory.isLogged = true;
-        AuthenticationFactory.user = data.email;
-        AuthenticationFactory.userRole = {};
+        AuthenticationStorage.isLogged = true;
+        AuthenticationStorage.user = data.email;
+        AuthenticationStorage.userRole = {};
 
         $window.sessionStorage.token = data.token;
         $window.sessionStorage.user = data.user; // to fetch the user details on refresh
@@ -33,7 +33,7 @@ var LoginCtrl = function($window, $location, UserAuthFactory, AuthenticationFact
   };
 };
 
-LoginCtrl.$inject = ["$window", "$location", "UserAuthFactory", "AuthenticationFactory"];
+LoginCtrl.$inject = ["$window", "$location", "UserAuthFactory", "AuthenticationStorage"];
 
 angular.module('security')
   .controller("LoginCtrl", LoginCtrl);

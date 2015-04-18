@@ -1,48 +1,39 @@
 (function() {
 
-  var AuthenticationFactory = function($window) {
-    var auth = {
-      isLogged: false,
-      check: function() {
-        if ($window.sessionStorage.token && $window.sessionStorage.user) {
-          this.isLogged = true;
-        } else {
-          this.isLogged = false;
-          delete this.user;
-        }
-      }
-    };
-
-    return auth;
-  };
-  AuthenticationFactory.$inject = ['$window'];
-
-  var UserAuthFactory = function($window, $location, $http, AuthenticationFactory) {
+  var AuthenticationStorage = function($location) {
     return {
-      login: function(email, password) {
-        return $http.post('/security/authenticate', {
-          email: email,
-          password: password
-        });
+      isLogged: false,
+      user: undefined,
+      check: function() {
+        return this.isLogged;
       },
       logout: function() {
-        if (AuthenticationFactory.isLogged) {
-          AuthenticationFactory.isLogged = false;
-          delete AuthenticationFactory.user;
-          delete AuthenticationFactory.userRole;
-
+        if (this.isLogged) {
+          this.isLogged = false;
           delete $window.sessionStorage.token;
           delete $window.sessionStorage.user;
-          delete $window.sessionStorage.userRole;
-
           $location.path("/login");
         }
       }
     };
   };
-  UserAuthFactory.$inject = ["$window", "$location", "$http", "AuthenticationFactory"];
 
-  var TokenInceptor = function($q, $window, $location, AuthenticationFactory) {
+  AuthenticationStorage.$inject = ["$location"];
+
+  var UserAuthFactory = function($window, $location, $http) {
+    return {
+      login: function(email, password) {
+        return $http.post('/security/auth', {
+          email: email,
+          password: password
+        });
+      }
+
+    };
+  };
+  UserAuthFactory.$inject = ["$window", "$location", "$http"];
+
+  var TokenInceptor = function($q, $window, $location, AuthenticationStorage) {
     return {
       request: function(config) {
         config.headers = config.headers || {};
@@ -59,24 +50,18 @@
       },
       responseError: function(error) {
         if (error.status === 401) {
-          AuthenticationFactory.isLogged = false;
-          delete AuthenticationFactory.user;
-          delete $window.sessionStorage.token;
-          delete $window.sessionStorage.user;
-          $location.path("/login");
+          AuthenticationStorage.logout();
           return $q.reject(error);
-
         } else {
           return $q.reject(error);
         }
       }
     };
   };
-  TokenInceptor.$inject = ["$q", "$window", "$location", "AuthenticationFactory"];
+  TokenInceptor.$inject = ["$q", "$window", "$location", "AuthenticationStorage"];
 
   angular.module('security')
     .factory("TokenInceptor", TokenInceptor)
     .factory("UserAuthFactory", UserAuthFactory)
-    .factory("AuthenticationFactory", AuthenticationFactory);
-
+    .factory("AuthenticationStorage", AuthenticationStorage);
 })();

@@ -11,12 +11,16 @@ for (var i = 0; i < 500; i++) {
   });
 }
 
+//Authentication check
+router.get('/isAuthenticated', security.securityCheck, function() {
+  res.send(200);
+});
+
 //Secure api calls
 router.all('/*', security.securityCheck);
 
 //List players
 router.get('/players', function(req, res) {
-  console.log("Player list called");
   res.json(resJson);
 });
 

@@ -8,9 +8,9 @@ var HeaderDirective = function() {
   };
 };
 
-var HeaderDirectiveController = function($route, $location, UserAuthFactory, AuthenticationFactory) {
+var HeaderDirectiveController = function($route, $location, UserAuthFactory, AuthenticationStorage) {
   var header = this;
-  header.authFactory = AuthenticationFactory;
+  header.authStorage = AuthenticationStorage;
   header.gohome = function() {
     $location.path("/");
   };
@@ -21,7 +21,7 @@ var HeaderDirectiveController = function($route, $location, UserAuthFactory, Aut
 
 
 
-HeaderDirectiveController.$inject = ["$route", "$location", "UserAuthFactory", "AuthenticationFactory"];
+HeaderDirectiveController.$inject = ["$route", "$location", "UserAuthFactory", "AuthenticationStorage"];
 
 angular.module('page.frame')
   .controller("HeaderCtrl", HeaderDirectiveController)

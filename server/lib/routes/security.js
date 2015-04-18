@@ -7,7 +7,7 @@ var jwt = require("jsonwebtoken");
 router.post('/authenticate', function(req, res) {
   if (req.body.email === user.email && req.body.password === user.password) {
     var token = jwt.sign(user, require('../config/key.js')(), {
-      expiresInMinutes: 60
+      expiresInMinutes: 1
     });
     res.json({
       type: true,
@@ -22,6 +22,7 @@ router.post('/authenticate', function(req, res) {
     });
   }
 });
+
 
 module.exports = {
   router: router,
