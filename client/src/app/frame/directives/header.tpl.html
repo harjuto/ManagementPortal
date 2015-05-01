@@ -10,25 +10,18 @@
       <img src="static/images/vulpine_header_web.png"></img>
     </a>
   </div>
-  <ul class="nav navbar-top-links navbar-right">
 
-    <!-- /.dropdown -->
-    <li class="dropdown">
-      <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-        <i class="fa fa-user fa-fw"></i>
-        <span ng-show="userInfo.isAuthenticated" ng-bind="userInfo.userName"></span>
-        <i class="fa fa-caret-down"></i>
-      </a>
-      <ul class="dropdown-menu dropdown-user">
-        <li ng-if="userInfo.isAuthenticated">
-          <a href ng-click="header.logout()"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-        </li>
-        <li ng-if="!userInfo.isAuthenticated">
-          <a href ng-click="header.login()"><i class="fa fa-login"></i> Login</a>
-        </li>
-      </ul>
-      <!-- /.dropdown-user -->
+  <ul class="nav navbar-nav navbar-right">
+    <li ng-show="userInfo.isAuthenticated">
+      <i class="fa fa-user fa-fw"></i>
+      <span ng-bind="userInfo.userName"></span>
     </li>
-    <!-- /.dropdown -->
+    <li ng-show="userInfo.isAuthenticated">
+      <a href ng-click="header.logout()"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+    </li>
+    <li ng-show="!userInfo.isAuthenticated">
+      <a href ng-click="header.login()" ng-if="!userInfo.isAuthenticated"><i class="fa fa-login"></i> Login</a>
+    </li>
   </ul>
+
 </nav>

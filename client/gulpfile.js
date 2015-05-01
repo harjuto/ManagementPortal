@@ -34,7 +34,8 @@ var config = {
     'vendor/angular-messages/angular-messages.js',
     'vendor/react/react.min.js',
     'vendor/adal-angular/dist/adal.min.js',
-    'vendor/adal-angular/lib/adal-angular.js'
+    'vendor/adal-angular/lib/adal-angular.js',
+    'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js'
   ],
   css: ['src/**/*.css', 'vendor/font-awesome/css/font-awesome.min.css'],
   less: ['src/less/**/*.less'],

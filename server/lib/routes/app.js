@@ -10,8 +10,6 @@ module.exports = function(app) {
 
   //Single-page-app entry
   app.get('/', function(req, res) {
-
-    //res.redirect('/security/auth');
     res.sendfile('index.html', {
       root: path.resolve(__dirname, config.get('distFolder'))
     });
@@ -19,9 +17,6 @@ module.exports = function(app) {
 
   //Static resources
   app.use("/static", staticResources);
-
-  //Authentication
-  app.use("/security", azureAd);
 
   //API
   app.use("/api", api);

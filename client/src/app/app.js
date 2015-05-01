@@ -2,6 +2,7 @@ angular.module('app', [
   'ngRoute',
   'ConfigService',
   'security',
+  'ui.bootstrap',
   'page.frame',
   'areas.dashboard',
   'areas.home',
@@ -9,12 +10,7 @@ angular.module('app', [
 ])
 
 .config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
-  $locationProvider.html5Mode({
-    enabled: true,
-    requireBase: false
-  }).hashPrefix('!');
-
-  $routeProvider.when('/', {
+  $routeProvider.otherwise({
     redirectTo: '/home'
   });
 }]);

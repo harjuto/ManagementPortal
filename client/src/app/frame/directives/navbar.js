@@ -17,8 +17,6 @@ var NavigationDirectiveController = function($route, $location) {
 };
 
 
-
-
 NavigationDirectiveController.$inject = ["$route", "$location"];
 
 

@@ -20,7 +20,7 @@
 <body ng-app="app">
   <div id="wrapper" ng-controller="FrameCtrl as frame">
     <header></header>
-    <navigation ng-if="frame.authFactory.isLogged"></navigation>
+    <navigation ng-if="userInfo.isAuthenticated"></navigation>
     <div id="page-wrapper">
       <div ng-view></div>
     </div>

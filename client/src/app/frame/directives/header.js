@@ -19,9 +19,7 @@ var HeaderDirectiveController = function($scope, $route, $location, adalAuthenti
   };
   header.login = function() {
     adalAuthenticationService.login();
-
   };
-
 };
 
 
