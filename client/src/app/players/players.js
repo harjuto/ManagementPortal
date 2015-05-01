@@ -6,10 +6,6 @@
   ])
 
   .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
-    $locationProvider.html5Mode({
-      enabled: true,
-      requireBase: false
-    });
 
     $routeProvider
       .when('/players', {
@@ -22,9 +18,8 @@
             return PlayerService.list();
           }]
         },
-        access: {
-          requiredLogin: true
-        }
+        requireADLogin: true
+
 
       })
       .when('/players/:id', {
@@ -36,7 +31,9 @@
           player: ['PlayerService', '$route', function(PlayerService, $route) {
             return PlayerService.show($route.current.params.id);
           }]
-        }
+        },
+        requireADLogin: true
+
       });
   }]);
 })();

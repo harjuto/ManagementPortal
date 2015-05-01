@@ -32,7 +32,9 @@ var config = {
     'vendor/ngstorage/ngStorage.js',
     'vendor/angular-lodash/angular-lodash.js',
     'vendor/angular-messages/angular-messages.js',
-    'vendor/react/react.min.js'
+    'vendor/react/react.min.js',
+    'vendor/adal-angular/dist/adal.min.js',
+    'vendor/adal-angular/lib/adal-angular.js'
   ],
   css: ['src/**/*.css', 'vendor/font-awesome/css/font-awesome.min.css'],
   less: ['src/less/**/*.less'],
@@ -62,9 +64,9 @@ gulp.task('scripts', function() {
   gulp.src(config.src)
     .pipe(react())
     .pipe(concat('app.min.js'))
+    //.pipe(stripDebug())
     //.pipe(uglify())
-    .pipe(gulp.dest('./dist/app'));
-
+    .pipe(gulp.dest('./dist/app/'));
 });
 
 // Compile and concatenate less
@@ -110,7 +112,7 @@ gulp.task('vendor', function() {
   gulp.src(config.vendor)
     .pipe(concat('vendor.min.js'))
     .pipe(stripDebug())
-    .pipe(uglify())
+    //.pipe(uglify())
     .pipe(gulp.dest('./dist/app/'));
 });
 

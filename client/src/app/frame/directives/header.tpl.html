@@ -12,17 +12,19 @@
   </div>
   <ul class="nav navbar-top-links navbar-right">
 
-
     <!-- /.dropdown -->
-    <li class="dropdown" ng-if="header.authFactory.isLogged">
+    <li class="dropdown">
       <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
         <i class="fa fa-user fa-fw"></i>
-        <span ng-bind="header.authStorage.user"></span>
+        <span ng-show="userInfo.isAuthenticated" ng-bind="userInfo.userName"></span>
         <i class="fa fa-caret-down"></i>
       </a>
       <ul class="dropdown-menu dropdown-user">
-        <li>
+        <li ng-if="userInfo.isAuthenticated">
           <a href ng-click="header.logout()"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+        </li>
+        <li ng-if="!userInfo.isAuthenticated">
+          <a href ng-click="header.login()"><i class="fa fa-login"></i> Login</a>
         </li>
       </ul>
       <!-- /.dropdown-user -->

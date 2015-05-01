@@ -1,10 +1,9 @@
 (function() {
-  var FrameCtrl = function(AuthenticationStorage) {
+  var FrameCtrl = function() {
     var frame = this;
-    frame.authStorage = AuthenticationStorage;
   };
 
-  FrameCtrl.$inject = ["AuthenticationStorage"];
+  FrameCtrl.$inject = [];
 
 
   angular.module('page.frame', [])

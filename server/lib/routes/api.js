@@ -17,7 +17,7 @@ router.get('/isAuthenticated', security.securityCheck, function() {
 });
 
 //Secure api calls
-router.all('/*', security.securityCheck);
+//router.all('/*', security.securityCheck);
 
 //List players
 router.get('/players', function(req, res) {

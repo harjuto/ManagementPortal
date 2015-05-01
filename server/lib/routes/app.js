@@ -8,9 +8,10 @@ var azureAd = require("./azure-ad.js");
 // app/routes.js
 module.exports = function(app) {
 
-
   //Single-page-app entry
   app.get('/', function(req, res) {
+
+    //res.redirect('/security/auth');
     res.sendfile('index.html', {
       root: path.resolve(__dirname, config.get('distFolder'))
     });

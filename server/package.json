@@ -16,6 +16,7 @@
     "express": "4.x",
     "jsonwebtoken": "5.0.0",
     "morgan": "latest",
-    "nconf": "^0.7.1"
+    "nconf": "^0.7.1",
+    "request": "^2.55.0"
   }
 }

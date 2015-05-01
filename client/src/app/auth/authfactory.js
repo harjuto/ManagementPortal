@@ -1,3 +1,4 @@
+/*
 (function() {
 
   var AuthenticationStorage = function($location) {
@@ -23,7 +24,7 @@
   var UserAuthFactory = function($window, $location, $http) {
     return {
       login: function(email, password) {
-        return $http.post('/security/auth', {
+        return $http.get('/security/auth', {
           email: email,
           password: password
         });
@@ -58,10 +59,10 @@
       }
     };
   };
-  TokenInceptor.$inject = ["$q", "$window", "$location", "AuthenticationStorage"];
+//  TokenInceptor.$inject = ["$q", "$window", "$location", "AuthenticationStorage"];
 
-  angular.module('security')
-    .factory("TokenInceptor", TokenInceptor)
-    .factory("UserAuthFactory", UserAuthFactory)
-    .factory("AuthenticationStorage", AuthenticationStorage);
-})();
+  //  angular.module('security')
+  //  .factory("TokenInceptor", TokenInceptor)
+  //.factory("UserAuthFactory", UserAuthFactory)
+  //.factory("AuthenticationStorage", AuthenticationStorage);
+})();*/
