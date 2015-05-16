@@ -2,8 +2,8 @@
   "author": "Tomi Harju",
   "name": "ManagementPortal",
   "version": "0.0.1",
-  "dependencies": {},
-  "devDependencies": {
+  "dependencies": {
+    "gulp-ng-config": "^1.2.0",
     "del": "^1.1.1",
     "gulp": "^3.8.10",
     "gulp-cache": "^0.2.8",
@@ -20,5 +20,8 @@
     "gulp-uglify": "^1.0.2",
     "gulp-using": "0.0.1",
     "gulp-watch": "^3.0.0"
+  },
+  "devDependencies": {
+
   }
 }

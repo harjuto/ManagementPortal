@@ -1,3 +1,1 @@
-angular.module('areas.players.directives', [
-  'areas.players.components'
-]);
+angular.module('areas.players.directives', []);

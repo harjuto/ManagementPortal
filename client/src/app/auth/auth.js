@@ -1,11 +1,14 @@
-angular.module('security', ['AdalAngular'])
+angular.module('security', ['AdalAngular', 'app.config'])
 
-.config(['$routeProvider', '$locationProvider', '$httpProvider', 'adalAuthenticationServiceProvider', function($routeProvider, $locationProvider, $httpProvider, adalAuthenticationServiceProvider) {
+  .config(['$routeProvider', '$locationProvider', '$httpProvider', 'adalAuthenticationServiceProvider', 'CLIENT_ID', function ($routeProvider, $locationProvider, $httpProvider, adalAuthenticationServiceProvider, CLIENT_ID) {
   adalAuthenticationServiceProvider.init({
-      tenant: "lpactivedirectory.onmicrosoft.com",
-      clientId: "4b94dad1-0ca2-4ccc-8975-5df5057f0d14"
+    tenant: "lpactivedirectory.onmicrosoft.com",
+    clientId: CLIENT_ID,
+    endpoints: {
+      'http://lp-management-portal.azurewebsites.net/api': 'https://lpactivedirectory.onmicrosoft.com/lp-portal'
     },
+  },
     $httpProvider
-  );
+    );
 
 }]);

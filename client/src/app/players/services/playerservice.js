@@ -1,26 +1,49 @@
-angular.module('areas.players.services', [])
-  .factory('PlayerService', ["$http", "ConfigService", "$q", function($http, ConfigService, $q) {
-    var PlayerService = {};
+angular.module('areas.players.services')
+  .factory('PlayerService', ["$http", "$q", function ($http, $q) {
+  var PlayerService = {};
 
-    PlayerService.list = function() {
-      var defer = $q.defer();
+  PlayerService.querying = false;
 
-      $http.get('/api/players').
-      success(function(result) {
-        defer.resolve(result);
-      }).error(function(result) {
-        defer.reject(result);
-      });
+  PlayerService.list = function (queryType, queryString) {
+    var defer = $q.defer();
+    PlayerService.querying = true;
+    $http.get('http://lp-management-portal.azurewebsites.net/api/players/filter/flags')//?' + queryType + '=' + queryString)
+      .success(function (result) {
+      PlayerService.querying = false;
+      defer.resolve(result);
+    })
+      .error(function (result) {
+      PlayerService.querying = false;
+      defer.reject(result);
+    });
+    return defer.promise;
+  };
 
-      return defer.promise;
-    };
+  PlayerService.show = function (id) {
+    var defer = $q.defer();
+    $http.get('http://lp-management-portal.azurewebsites.net/api/player/?id=' + id)
+      .success(function (result) {
+      defer.resolve(result);
+    })
+      .error(function (result) {
+      defer.reject(result);
+    });
+    return defer.promise;
+  };
 
-    PlayerService.show = function(id) {
-      $http.get('api/players/' + id);
-    };
+  PlayerService.reward = function (values) {
+    var defer = $q.defer();
+    $http.get('http://lp-management-portal.azurewebsites.net/api/player/?id=' + id)
+      .success(function (result) {
+      defer.resolve(result);
+    })
+      .error(function (result) {
+      defer.reject(result);
+    });
+    return defer.promise;
+  }
 
 
 
-
-    return PlayerService;
-  }]);
+  return PlayerService;
+}]);

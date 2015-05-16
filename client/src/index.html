@@ -1,31 +1,34 @@
 <html>
-
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <title>Management Portal</title>
-  <link rel="shortcut icon" type="image/x-icon" href="static/images/favicon.ico" />
-  <link rel="stylesheet" href="static/css/bootstrap-override.css" />
-  <link rel="stylesheet" href="static/css/sb-admin-2.css" />
-  <link rel="stylesheet" href="static/css/font-awesome.min.css" />
-  <link rel="stylesheet" href="static/css/style.css" />
-  <link rel="stylesheet" href="static/css/navbar.css" />
-
-
-  <script src="static/app/vendor.min.js">
-  </script>
-  <script src="static/app/app.min.js"></script>
-  <script src="static/app/partials.min.js"></script>
-</head>
-
-<body ng-app="app">
-  <div id="wrapper" ng-controller="FrameCtrl as frame">
-    <header></header>
-    <navigation ng-if="userInfo.isAuthenticated"></navigation>
-    <div id="page-wrapper">
-      <div ng-view></div>
+  
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Management Portal</title>
+    <link rel="shortcut icon" type="image/x-icon" href="static/images/favicon.ico" />
+    <link rel="stylesheet" href="static/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="static/css/style.css" />
+    <link rel="stylesheet" href="static/css/navigation.css" />
+    <link rel="stylesheet" href="static/css/header.css" />
+    <link rel="stylesheet" href="static/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="static/css/angular-material.min.css" />
+  </head>
+  
+  <body ng-app="app">
+    <!--Header row-->
+    <div layout="row">
+      <header></header>
     </div>
-  </div>
-
-</body>
+    <div layout="row" layout-fill>
+      <!--Left side nav-->
+      <navigation></navigation>
+      <!--Main content area-->
+      <md-content layout="column" flex class="md-padding">
+        <div ng-view></div>
+      </md-content>
+    </div>
+    <script src="static/app/vendor.min.js"></script>
+    <script src="static/app/app.min.js"></script>
+    <script src="static/app/app.config.js"></script>
+    <script src="static/app/partials.min.js"></script>
+  </body>
 
 </html>

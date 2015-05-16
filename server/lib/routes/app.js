@@ -3,8 +3,6 @@ var path = require('path');
 var express = require('express');
 var api = require("./api.js");
 var staticResources = require('./static.js');
-var security = require("./security.js");
-var azureAd = require("./azure-ad.js");
 // app/routes.js
 module.exports = function(app) {
 
