@@ -1,0 +1,49 @@
+<md-content layout-padding>
+  <md-toolbar class="md-accent">
+    <div class="md-toolbar-tools">
+      <md-checkbox ng-model="list.filterObject.login.isBanned" aria-label="Finished?" class="md-accent md-hue-3">Show Banned</md-checkbox>
+      <md-checkbox ng-model="list.filterObject.login.suspendedUntil" ng-true-value="'!null'" ng-false-value="''" aria-label="Finished?" class="md-accent md-hue-3">Show suspended</md-checkbox>
+      <md-checkbox ng-model="list.orderObject" ng-true-value="'login.country'" ng-false-value="'player.nickname'" aria-label="Finished?" class="md-accent md-hue-3">Order by country</md-checkbox>
+	   	<md-slider flex min="1" step="5" max="255" md-discrete ng-model="list.showCount" aria-label="showcount" class="md-accent md-hue-3">
+      </md-slider>
+    </div>
+    <md-progress-linear ng-if="list.PlayerListService.querying" md-mode="indeterminate"></md-progress-linear>
+
+  </md-toolbar>
+  <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Nickname</th>
+        <th>Country</th>
+        <th>Alliance</th>
+        <th>Currency purchased</th>
+        <th>Flags</th>
+        <th>Banned</th>
+        <th>Suspended until</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="entry in list.players  | limitTo:list.showCount | filter: list.filterObject  | orderBy: list.orderObject track by entry.player.id">
+        <td>
+          <md-tooltip md-delay="10" md-direction="right">{{::entry.player.id}}</md-tooltip>
+          <a href ng-click="list.showPlayer(entry.player.id)">
+            <i class="fa fa-barcode"></i>
+          </a>
+        </td>
+        <td>{{::entry.player.nickname}}</td>
+        <td>{{::entry.login.country}}</td>
+        <td>
+          <a href ng-if="entry.alliance">
+            {{::entry.alliance.name}}
+          </a>
+        </td>
+        <td>{{::entry.currencyPurchased || valueFilter}}</td>
+        <td>{{::entry.unresolvedFlags | valueFilter}}</td>
+        <td>{{::entry.login.isBanned | valueFilter}}</td>
+        <td>{{::entry.login.suspendedUntil | date}}</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</md-content>

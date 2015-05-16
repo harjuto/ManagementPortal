@@ -1,0 +1,23 @@
+<md-content layout-padding>
+  <div layout="column" layout-align="center center">
+    <div>
+      <md-radio-group ng-model="list.queryType">
+        <div layout="row" layout-align="center center">
+          <md-radio-button value="nick">Nickname</md-radio-button>
+          <md-radio-button value="guid">Guid</md-radio-button>
+          <md-radio-button value="country">Country</md-radio-button>
+        </div>
+      </md-radio-group>
+    </div>
+    <div>
+      <md-input-container md-no-float>
+      <form ng-submit="list.query(list.queryType, list.queryString)">
+        <input type="text" size="90" ng-model="list.queryString" placeholder="Enter query string">
+      </form>
+      </md-input-container>
+    </div>
+    <div>
+      <md-button ng-click="list.queryByFlags()" class="md-no-ink" ng-class="{'md-raised': list.byFlags}"><i class="fa fa-flag fa-lg"> Flags</i></md-button>
+      <md-button ng-click="list.queryByMoney()" class="md-no-ink" ng-class="{'md-raised': list.byMoney}"><i class="fa fa-dollar fa-lg"> Currency</i></md-button>
+    </div>
+</md-content>
