@@ -9,6 +9,7 @@
   "private": true,
   "dependencies": {
     "compression": "^1.4.3",
-    "express": "4.x"
+    "express": "4.x",
+    "nconf": "^0.7.1"
   }
 }
