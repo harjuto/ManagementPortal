@@ -46,7 +46,16 @@
         $sessionStorage.players = players;
       });
     };
-    
+    list.query = function (queryString) {
+      list.clear();
+      list.byMoney = false;
+      list.byFlags = false;
+      PlayerListService.query(queryString)
+        .then(function (players) {
+        list.players = players;
+        $sessionStorage.players = players;
+      });
+    }
     
     list.clear = function () {
       list.players = [];

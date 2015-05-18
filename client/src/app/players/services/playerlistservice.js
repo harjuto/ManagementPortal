@@ -32,6 +32,21 @@ var PlayerListService = function ($q, $http) {
         defer.reject(result);
       });
       return defer.promise;
+    },
+    query: function (queryString) {
+      var defer = $q.defer();
+      var self = this;
+      self.querying = true;
+      $http.get('http://lp-management-portal.azurewebsites.net/api/players/' + queryString)
+        .success(function (result) {
+        self.querying = false;
+        defer.resolve(result);
+      })
+        .error(function (result) {
+        self.querying = false;
+        defer.reject(result);
+      });
+      return defer.promise;
     }
   };
 };

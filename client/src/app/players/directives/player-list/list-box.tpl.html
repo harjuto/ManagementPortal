@@ -17,21 +17,20 @@
         <th>Nickname</th>
         <th>Country</th>
         <th>Alliance</th>
-        <th>Currency purchased</th>
+        <th><i class="fa fa-money"></i> spent</th>
         <th>Flags</th>
         <th>Banned</th>
         <th>Suspended until</th>
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="entry in list.players  | limitTo:list.showCount | filter: list.filterObject  | orderBy: list.orderObject track by entry.player.id">
+      <tr ng-repeat="entry in list.players  | limitTo:list.showCount ">
         <td>
-          <md-tooltip md-delay="10" md-direction="right">{{::entry.player.id}}</md-tooltip>
-          <a href ng-click="list.showPlayer(entry.player.id)">
-            <i class="fa fa-barcode"></i>
+          <a href ng-click="list.showPlayer(entry.details.id)">
+            {{::entry.details.id}}
           </a>
         </td>
-        <td>{{::entry.player.nickname}}</td>
+        <td>{{::entry.details.nickname}}</td>
         <td>{{::entry.login.country}}</td>
         <td>
           <a href ng-if="entry.alliance">

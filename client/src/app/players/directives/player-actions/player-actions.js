@@ -7,32 +7,31 @@
         player: "="
       },
       controller: ["$scope","PlayerService", function($scope, PlayerService) {
-        $scope.alloy = 500;
-        $scope.stardust = 500;
-        $scope.msg = "";
+        $scope.Alloy = 500;
+        $scope.Stardust = 500;
+        $scope.Message = "";
         
         $scope.confirmedValues = {
-          alloy: $scope.alloy,
-          stardust: $scope.stardust,
-          msg: $scope.msg
+          Alloy: $scope.Alloy,
+          Stardust: $scope.Stardust,
+          Message: $scope.Message,
+          PlayerId: $scope.player.id
         };
 
         $scope.waitingForConfirmation = false;
         
         $scope.submit = function () {
-          $scope.confirmedValues.alloy = $scope.alloy;
-          $scope.confirmedValues.stardust = $scope.stardust;
-          $scope.confirmedValues.msg = $scope.msg;
-  	   
-          console.log($scope.confirmedValues);
+          $scope.confirmedValues.Alloy = $scope.Alloy;
+          $scope.confirmedValues.Stardust = $scope.Stardust;
+          $scope.confirmedValues.Message = $scope.Message;
           $scope.waitingForConfirmation = true;
         };
         $scope.confirm = function () {
-          $scope.alloy = 500;
-          $scope.stardust = 500;
-          $scope.msg = '';
+          $scope.Alloy = 500;
+          $scope.Stardust = 500;
+          $scope.Message = '';
           $scope.waitingForConfirmation = false;
-          //PlayerService.reward($scope.confirmedValues);
+          PlayerService.reward($scope.confirmedValues);
         };
         $scope.cancel = function () {
           $scope.waitingForConfirmation = false;

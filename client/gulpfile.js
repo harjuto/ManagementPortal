@@ -147,7 +147,7 @@ gulp.task('prodConfig', function () {
     .pipe(gulp.dest('./dist/app/'));
 });
 //QA config
-gulp.task('devConfig', function(){
+gulp.task('qaConfig', function(){
   gulp.src('')
     .pipe(ngConfig('app.config', {
       constants: {

@@ -11,7 +11,7 @@
 					<md-content layout-padding>
 						<div layout="column">
 							<div layout="row" layout-align="center center">
-								<h2 class="md-headline">Alloy: {{alloy}}</h2>
+								<h2 class="md-headline">Alloy: {{Alloy}}</h2>
 							</div>
 							<div>
 								<md-slider flex min="0" step="100" max="5000" md-discrete ng-model="alloy" aria-label="alloy" class="md-accent md-hue-3">
@@ -23,7 +23,7 @@
 					<md-content layout-padding>
 						<div layout="column">
 							<div layout="row" layout-align="center center">
-								<h2>Stardust:{{stardust}}</h2>
+								<h2>Stardust:{{Stardust}}</h2>
 							</div>
 							<div>
 								<md-slider flex min="0" step="100" max="5000" md-discrete ng-model="stardust" aria-label="stardust" class="md-accent md-hue-3">
@@ -36,7 +36,7 @@
 				<div flex>
 					<md-input-container>
 						<label>Message</label>
-						<textarea ng-model="msg" md-maxlength="250"></textarea>
+						<textarea ng-model="Message" md-maxlength="250"></textarea>
 					</md-input-container>
 				</div>
 				<div flex>
@@ -51,11 +51,11 @@
 						<div layout="column" layout-align="center center">
 							<h4>Player: {{::player.name}}</h4>
 							<p>
-								<div class="badge">Alloy: {{confirmedValues.alloy}}</div>
+								<div class="badge">Alloy: {{confirmedValues.Alloy}}</div>
 							</p>
-							<div class="badge">Stardust: {{confirmedValues.stardust}}</div>
+							<div class="badge">Stardust: {{confirmedValues.Stardust}}</div>
 							<h4>Message</h4>
-							<p>{{confirmedValues.msg}}</p>
+							<p>{{confirmedValues.Message}}</p>
 						</div>
 						<div layout="row" layout-align="center center">
 							<md-button class="md-raised md-primary" ng-click="confirm()">Confirm</md-button>

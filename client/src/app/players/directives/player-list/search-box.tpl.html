@@ -5,13 +5,13 @@
         <div layout="row" layout-align="center center">
           <md-radio-button value="nick">Nickname</md-radio-button>
           <md-radio-button value="guid">Guid</md-radio-button>
-          <md-radio-button value="country">Country</md-radio-button>
+          <md-radio-button value="country">(Country)</md-radio-button>
         </div>
       </md-radio-group>
     </div>
     <div>
       <md-input-container md-no-float>
-      <form ng-submit="list.query(list.queryType, list.queryString)">
+      <form ng-submit="list.query(list.queryString)">
         <input type="text" size="90" ng-model="list.queryString" placeholder="Enter query string">
       </form>
       </md-input-container>
