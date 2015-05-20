@@ -1,30 +1,44 @@
 <md-content layout-padding>
-  <md-toolbar class="md-accent">
-    <div class="md-toolbar-tools">
-      <md-checkbox ng-model="list.filterObject.login.isBanned" aria-label="Finished?" class="md-accent md-hue-3">Show Banned</md-checkbox>
-      <md-checkbox ng-model="list.filterObject.login.suspendedUntil" ng-true-value="'!null'" ng-false-value="''" aria-label="Finished?" class="md-accent md-hue-3">Show suspended</md-checkbox>
-      <md-checkbox ng-model="list.orderObject" ng-true-value="'login.country'" ng-false-value="'player.nickname'" aria-label="Finished?" class="md-accent md-hue-3">Order by country</md-checkbox>
-	   	<md-slider flex min="1" step="5" max="255" md-discrete ng-model="list.showCount" aria-label="showcount" class="md-accent md-hue-3">
-      </md-slider>
-    </div>
-    <md-progress-linear ng-if="list.PlayerListService.querying" md-mode="indeterminate"></md-progress-linear>
+  <div layout="row">
+    <div layout="column" layout-align="center center" ng-class="{'highlighted': !list.findByFlags}">
+      <i class="fa fa-money fa-lg" "></i>
+        </div>
 
-  </md-toolbar>
-  <table class="table table-condensed">
+        <md-switch 
+          ng-model="list.findByFlags " 
+          aria-label="flagswitch "
+          ng-change="list.list() ">
+        </md-switch>
+        <div layout="column" layout-align="center center" ng-class = "{'highlighted': list.findByFlags}">
+          <i class="fa fa-flag fa-lg"></i>
+    </div>
+  </div>
+  <md-progress-linear ng-if="list.PlayerListService.querying" md-mode="indeterminate"></md-progress-linear>
+  <table class="table table-condensed table-striped table-bordered">
     <thead>
       <tr>
         <th>Id</th>
-        <th>Nickname</th>
-        <th>Country</th>
+        <th>Nick</a>
+        </th>
+        <th>
+          <a href ng-click="list.orderField='login.country'; list.reverse = !list.reverse">Country</a>
+        </th>
         <th>Alliance</th>
-        <th><i class="fa fa-money"></i> spent</th>
+        <th>
+          <a href ng-click="list.orderField='currencyPurchased'; list.reverse = !list.reverse">Spent</a>
+        </th>
         <th>Flags</th>
-        <th>Banned</th>
-        <th>Suspended until</th>
+        <th>
+          <md-checkbox ng-model="list.filterObject.login.isBanned" aria-label="Finished?" class="md-accent md-hue-3">Banned</md-checkbox>
+        </th>
+        <th>
+          <md-checkbox ng-model="list.filterObject.login.suspendedUntil" ng-true-value="'!null'" ng-false-value="''" aria-label="Finished?"
+          class="md-accent md-hue-3">Suspended until</md-checkbox>
+        </th>
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="entry in list.players  | limitTo:list.showCount ">
+      <tr ng-repeat="entry in list.players  | limitTo:list.showCount | orderBy:list.orderField:list.reverse">
         <td>
           <a href ng-click="list.showPlayer(entry.details.id)">
             {{::entry.details.id}}
@@ -41,7 +55,6 @@
         <td>{{::entry.unresolvedFlags | valueFilter}}</td>
         <td>{{::entry.login.isBanned | valueFilter}}</td>
         <td>{{::entry.login.suspendedUntil | date}}</td>
-        <td></td>
       </tr>
     </tbody>
   </table>

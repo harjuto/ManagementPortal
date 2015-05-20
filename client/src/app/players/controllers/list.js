@@ -3,70 +3,56 @@
 
   var ListCtrl = function (PlayerListService, $location, $scope, $sessionStorage) {
     var list = this;
-    
+
     list.PlayerListService = PlayerListService;
     list.players = $sessionStorage.players || [];
-    
+
     list.showCount = 10;
-    list.filterObject = {
-      login: {
-        suspendedUntil: ''
-      }
-    };
-    list.orderObject = "player.nickname";
-    list.queryType = 'guid';
+   
+    list.reverse = true;
+    list.findByFlags = true;
     list.queryString = '';
-    
-    list.byFlags = true;
-    list.byMoney = false;
 
     list.showPlayer = function (id) {
       $location.path("/players/" + id);
     };
-    
 
-    list.queryByFlags = function () {
+
+    list.list = function () {
       list.clear();
-      list.byFlags = true;
-      list.byMoney = false;
-      PlayerListService.byFlags()
-        .then(function (players) {
+      var promise;
+      if (list.findByFlags) {
+        promise = PlayerListService.byFlags();
+      } else {
+        promise = PlayerListService.byMoney();
+      }
+      promise.then(function (players) {
         list.players = players;
         console.log(list.players);
         $sessionStorage.players = players;
       });
-    };
-    list.queryByMoney = function () {
-      list.clear();
-      list.byMoney = true;
-      list.byFlags = false;
-      PlayerListService.byMoney()
-        .then(function (players) {
-        list.players = players;
-        $sessionStorage.players = players;
-      });
-    };
-    list.query = function (queryString) {
-      list.clear();
-      list.byMoney = false;
-      list.byFlags = false;
-      PlayerListService.query(queryString)
-        .then(function (players) {
-        list.players = players;
-        $sessionStorage.players = players;
-      });
     }
-    
-    list.clear = function () {
-      list.players = [];
-      delete $sessionStorage.players;
+      list.query = function (queryString) {
+        list.clear();
+        list.byMoney = false;
+        list.byFlags = false;
+        PlayerListService.query(queryString)
+          .then(function (players) {
+          list.players = players;
+          $sessionStorage.players = players;
+        });
+      }
+
+      list.clear = function () {
+        list.players = [];
+        delete $sessionStorage.players;
+      };
+      list.list();
     };
 
-  };
+    ListCtrl.$inject = ["PlayerListService", "$location", "$scope", "$sessionStorage"];
 
-  ListCtrl.$inject = ["PlayerListService", "$location", "$scope", "$sessionStorage"];
+    angular.module('areas.players.controllers', [])
+      .controller("PlayerListCtrl", ListCtrl);
 
-  angular.module('areas.players.controllers', [])
-    .controller("PlayerListCtrl", ListCtrl);
-
-})();
+  })();

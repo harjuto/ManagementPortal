@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="static/css/header.css" />
     <link rel="stylesheet" href="static/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="static/css/angular-material.min.css" />
+    <link rel="stylesheet" href="static/css/material-override.css" />
   </head>
   
   <body ng-app="app">
@@ -21,7 +22,7 @@
       <!--Left side nav-->
       <navigation></navigation>
       <!--Main content area-->
-      <md-content layout="column" flex class="md-padding">
+      <md-content layout="column" flex>
         <div ng-view></div>
       </md-content>
     </div>
