@@ -2,7 +2,7 @@
   "author": "Tomi Harju",
   "name": "ManagementPortal",
   "description": "Last Planets Management Portal backend",
-  "version": "0.0.1",
+  "version": "0.1",
   "engines": {
     "node": "*"
   },
