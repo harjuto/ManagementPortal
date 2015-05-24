@@ -11,3 +11,22 @@ form{
 		color:@brand-success;
 	}
 }
+
+player-reward, resolve-flags{
+	.table{
+		& > tbody > tr {
+			& > td, & > th{
+				border-top:none;
+			}
+		}
+		td:last-child{
+			width:40%;
+		}
+		
+		.highlight{
+			color:@brand-primary;
+			font-weight:bold;
+		}
+		
+	}
+}

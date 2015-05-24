@@ -81,7 +81,7 @@ gulp.task('less', function() {
   gulp.src(config.less)
     .pipe(less())
     .pipe(minifyCSS())
-
+    .pipe(concat('app.min.css'))
   .pipe(gulp.dest('./dist/css'));
 });
 

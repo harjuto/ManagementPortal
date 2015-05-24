@@ -7,7 +7,7 @@ module.exports = function(app) {
 
   //Single-page-app entry
   app.get('/', function(req, res) {
-    res.sendfile('index.html', {
+    res.sendFile('index.html', {
       root: path.resolve(__dirname, config.get('distFolder'))
     });
   });
@@ -17,7 +17,7 @@ module.exports = function(app) {
 
   //Render index if any other url
   app.use(function(req, res) {
-    res.sendfile('index.html', {
+    res.sendFile('index.html', {
       root: path.resolve(__dirname, config.get('distFolder'))
     });
   });

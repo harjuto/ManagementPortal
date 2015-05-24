@@ -10,7 +10,7 @@ router.use(compression({
 }));
 router.use(express.static(path.resolve(__dirname, config.get('distFolder'))));
 router.use(function(req, res, next) {
-  res.send(404);
+  res.sendStatus(404);
 });
 
 module.exports = router;

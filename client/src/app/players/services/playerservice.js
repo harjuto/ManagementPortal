@@ -19,20 +19,7 @@ angular.module('areas.players.services')
     return defer.promise;
   };
 
-  PlayerService.query = function (queryString) {
-     var defer = $q.defer();
-    PlayerService.querying = true;
-    $http.get('http://lp-management-portal.azurewebsites.net/api/players/' + queryString)
-      .success(function (result) {
-      PlayerService.querying = false;
-      defer.resolve(result);
-    })
-      .error(function (result) {
-      PlayerService.querying = false;
-      defer.reject(result);
-    });
-    return defer.promise;
-  }
+  
 
   PlayerService.show = function (id) {
     var defer = $q.defer();
@@ -48,7 +35,14 @@ angular.module('areas.players.services')
 
   PlayerService.reward = function (player) {
     var defer = $q.defer();
-    $http.post('http://lp-management-portal.azurewebsites.net/api/rewards/',player)
+    //Temporary conversion until api is camelcase again :)
+    var data = {
+      Alloy: player.alloy,
+      Stardust: player.stardust,
+      Message: player.message,
+      PlayerId: player.playerId
+    };
+    $http.post('http://lp-management-portal.azurewebsites.net/api/rewards/',data)
       .success(function (result) {
       defer.resolve(result);
     })

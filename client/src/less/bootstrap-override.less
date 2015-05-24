@@ -1,0 +1,14 @@
+@import 'variables.less';
+
+.btn-primary{
+	background-color:@brand-primary;
+	border:none;
+	
+	&[disabled]{
+		background-color:lighten(@brand-primary, 10);
+		
+	}
+	&:hover{
+		background-color: darken(@brand-primary, 10);
+	}
+}
