@@ -1,26 +1,16 @@
+/**
+ * Service for handling player spesific actions
+ * Author Tomi Harju
+ */
+
 angular.module('areas.players.services')
   .factory('PlayerService', ["$http", "$q", function ($http, $q) {
   var PlayerService = {};
-
-  PlayerService.querying = false;
-
-  PlayerService.list = function (queryType, queryString) {
-    var defer = $q.defer();
-    PlayerService.querying = true;
-    $http.get('http://lp-management-portal.azurewebsites.net/api/players/filter/flags')//?' + queryType + '=' + queryString)
-      .success(function (result) {
-      PlayerService.querying = false;
-      defer.resolve(result);
-    })
-      .error(function (result) {
-      PlayerService.querying = false;
-      defer.reject(result);
-    });
-    return defer.promise;
-  };
-
   
-
+  /**
+   * Called when route changes to /players/id
+   * Fetches player general info
+   */
   PlayerService.show = function (id) {
     var defer = $q.defer();
     $http.get('http://lp-management-portal.azurewebsites.net/api/players/' + id + '/details')
@@ -33,16 +23,21 @@ angular.module('areas.players.services')
     return defer.promise;
   };
 
-  PlayerService.reward = function (player) {
+  /**
+   * Called when submitting a reward
+   * Params: reward object with given stardust and alloy values and a message 
+   * to send to the rewarded player.
+   */
+  PlayerService.reward = function (reward) {
     var defer = $q.defer();
     //Temporary conversion until api is camelcase again :)
     var data = {
-      Alloy: player.alloy,
-      Stardust: player.stardust,
-      Message: player.message,
-      PlayerId: player.playerId
+      Alloy: reward.alloy,
+      Stardust: reward.stardust,
+      Message: reward.message,
+      PlayerId: reward.playerId
     };
-    $http.post('http://lp-management-portal.azurewebsites.net/api/rewards/',data)
+    $http.post('http://lp-management-portal.azurewebsites.net/api/rewards/', data)
       .success(function (result) {
       defer.resolve(result);
     })
@@ -50,7 +45,38 @@ angular.module('areas.players.services')
       defer.reject(result);
     });
     return defer.promise;
-  }
+  };
+  
+  /**
+   * Called by player-resolve-flags directive.
+   * Fetches player flag information. 
+   */
+  PlayerService.flags = function (id) {
+    var defer = $q.defer();
+    $http.get('http://lp-management-portal.azurewebsites.net/api/players/' + id + '/flags')
+      .success(function (result) {
+      defer.resolve(result);
+    })
+      .error(function (result) {
+      defer.reject(result);
+    })
+    return defer.promise;
+  };
+  
+  /**
+   * Resolve flag with id
+   */
+  PlayerService.resolve = function (playerId, flagId) {
+    var defer = $q.defer();
+    $http.put('http://lp-management-portal.azurewebsites.net/api/players/' + playerId + '/flags/' + flagId + '/resolve')
+      .success(function (result) {
+      defer.resolve(result);
+    })
+      .error(function (result) {
+      defer.reject(result);
+    })
+    return defer.promise;
+  };
 
 
 

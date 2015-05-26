@@ -7,29 +7,44 @@
         player: "="
       },
       controller: ["$scope","PlayerService","$route", function($scope, PlayerService, $route) {
-        //Set initial values
+        
+        /**
+         * Initialize values
+         */
         resetValues();
+        
+        /**
+         * Submit reward, called after submit is clicked in UI
+         */
         $scope.submit = function () {
           $scope.loading = true;
           PlayerService.reward($scope.reward)
             .then(function () {
-            	alert("Success");
-              $route.reload();
+              reload();
             }, function () {
               alert("Something went wrong");
             });
         };
         
+        /**
+         * Called when clicking clear button in UI
+         * Resets initial values
+         */
         $scope.clear = function () {
-          //Reload empty values
           resetValues();
         };
         
-      
+        /**
+         * Used to determine wether to disable submit button
+         * Allow submitting only if Alloy or Stardust and message 
+         */
         $scope.isValid = function () {
           return ($scope.reward.alloy || $scope.reward.stardust) && $scope.reward.message;
         };
         
+        /**
+         * Function which sets initial reward values
+         */
         function resetValues() {
           $scope.reward = {
               alloy: 0,
@@ -38,6 +53,17 @@
               playerId: $scope.player.id
           };
         }
+        
+        /**
+         * Reload player data to show updated allow and stardust values
+         */
+        function reload() {
+          PlayerService.show($scope.player.id)
+            .then(function (data) {
+            resetValues();
+            $scope.player = data;
+          });
+         }
       
       }]
     };
@@ -54,8 +80,34 @@
       scope: {
         player: '='
       },
-      controller: ["$scope", function ($scope) {
-
+      controller: ["$scope", "PlayerService", function ($scope, PlayerService) {
+       
+         /**
+         * Initial loading
+         */
+        reload();
+       
+        /**
+         * Called by clicking resolve button in Ui
+         * Once finished, calls reload to refresh flags. 
+         */
+        $scope.resolve = function (playerId, flagId) {
+          PlayerService.resolve(playerId, flagId)
+            .then(function (data) {
+            reload();
+          });
+        };
+        
+        /**
+         * Reload flags
+         */
+        function reload() {
+          PlayerService.flags($scope.player.id)
+            .then(function (data) {
+            $scope.flags = data;
+          });
+        };
+        
       }]
     };
   }

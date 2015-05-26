@@ -1,21 +1,24 @@
 <div layout-margin>
-<table class="table">
+<table class="table table-condensed table-striped table-bordered">
+	<thead>
 	<tr>
 		<th>Flag code</th>
 		<th>Time</th>
 		<th>Replay id</th>
 		<th>Handled</th>
 	</tr>
-	<tr>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
+	</thead>
+	<tbody>
+	<tr ng-repeat="flag in flags">
+		<td>{{flag.code}}</td>
+		<td>{{flag.time}}</td>
+		<td>{{flag.replayId}}</td>
 		<td>
-			<div class="btn btn-primary">Handle</div>
+			<i ng-click="resolve(flag.playerId, flag.flagId)" ng-if="!flag.isResolved" class="fa fa-square-o"></i>
+			<i ng-if="flag.isResolved" class="fa fa-check-square-o"></i>
 		</td>
 	</tr>
-	
+	</tbody>
 </table>
 
 </div>

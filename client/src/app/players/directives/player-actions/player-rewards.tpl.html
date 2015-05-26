@@ -3,13 +3,16 @@
 	{{player.name}}
 </h2>
 
-<table class="table">
+<table class="table table-striped table-bordered">
+	<thead>
 	<tr>
 		<th><a href ng-click="clear()"><i class="fa fa-trash"> Clear</i></a></th>
 		<th>Current total</th>
 		<th>Reward size</th>
 		<th>Message</th>
 	</tr>
+	</thead>
+	<tbody>
 	<tr>
 		<td>Alloy</td>
 		<td>
@@ -40,6 +43,7 @@
 	<tr>
 		<td colspan="4"><div class="btn btn-primary " ng-disabled="!isValid()" ng-click="submit()">Send reward</div></td>
 	</tr>
+	</tbody>
 </table>
 </div>
 <hr/>
