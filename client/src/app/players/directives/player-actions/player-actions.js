@@ -114,8 +114,50 @@
   
   ResolveFlagsDirective.$inject = [];
 
-  angular.module('areas.players.directives')
+  var PlayerBanDirective = function () {
+    return {
+      restrict: "E",
+      replace: true,
+      templateUrl: '/app/players/directives/player-actions/player-ban.tpl.html',
+      scope: {
+        player: "="
+      },
+      controller: ["$scope","PlayerService", function ($scope, PlayerService) {
+        /**
+         * Ban player
+         */
+        $scope.ban = function (playerId, doBan) {
+          PlayerService.ban(playerId, doBan)
+            .then(function (data) {
+            reload();
+           })
+        }
+         
+       /**
+        * Suspend player
+        */
+        $scope.suspend = function (playerId) {
+          PlayerService.suspend(playerId)
+            .then(function (data) {
+            reload();
+          });
+        };
+        
+        /**
+         * Reload player data to show updated ban/suspend status.
+         */
+        function reload() {
+          PlayerService.show($scope.player.id)
+            .then(function (data) {
+            $scope.player = data;
+          });
+         }
+      }]
+    }
+  };
+
+  angular.module('areas.players')
     .directive('playerReward', RewardDirective)
-    .directive('resolveFlags', ResolveFlagsDirective);
-    
+    .directive('resolveFlags', ResolveFlagsDirective)
+    .directive('playerBan', PlayerBanDirective);
 })();

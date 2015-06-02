@@ -6,14 +6,14 @@ angular.module('app', [
   'ngStorage',
   'app.config',
   'page.frame',
-  'areas.dashboard',
   'areas.home',
-  'areas.players'
+  'areas.players',
+  'areas.alliance'
 ])
 
 .config(['$routeProvider','$mdThemingProvider', function($routeProvider, $mdThemingProvider) {
   $routeProvider.otherwise({
-    redirectTo: '/home'
+    redirectTo: '/players'
   });
   
   $mdThemingProvider.definePalette('vulpinePalette', {

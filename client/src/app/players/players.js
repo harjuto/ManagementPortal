@@ -1,9 +1,5 @@
 (function() {
-  angular.module('areas.players', [
-    'areas.players.controllers',
-    'areas.players.services',
-    'areas.players.directives'
-  ])
+  angular.module('areas.players', [])
 
   .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
 

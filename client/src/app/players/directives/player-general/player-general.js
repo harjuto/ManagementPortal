@@ -13,6 +13,6 @@
   };
 
   PlayerGeneralDirective.$inject = [];
-  angular.module('areas.players.directives')
+  angular.module('areas.players')
     .directive('playerGeneral', PlayerGeneralDirective);
 })();

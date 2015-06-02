@@ -26,6 +26,6 @@ var HeaderDirectiveController = function($scope, $route, $location, adalAuthenti
 
 HeaderDirectiveController.$inject = ["$scope", "$route", "$location", "adalAuthenticationService"];
 
-angular.module('page.frame')
+angular.module('page.frame',[])
   .controller("HeaderCtrl", HeaderDirectiveController)
   .directive("header", HeaderDirective);

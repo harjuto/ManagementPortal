@@ -20,10 +20,19 @@
     list.showCount = 10;
    
     /**
-     * Toggle for value sorting order.
+     * List filter values.
      */
-    list.reverse = true;
-    
+    list.filters = {
+      reverse: true,
+      player: {
+        login: {
+            isBanned: false,
+            suspendedUntil: undefined  
+        }
+      }
+     
+      
+    };
     /**
      * Set by slider, determines which api to call (money or flags)
      */
@@ -40,7 +49,13 @@
     list.showPlayer = function (id) {
       $location.path("/players/" + id);
     };
-
+    
+    /**
+     * Action to show alliance page
+     */
+    list.showAlliance = function (id) {
+      $location.path("/alliance/" + id);
+    }
 
     /**
      * Used to query data to table.
@@ -101,7 +116,7 @@
 
   ListCtrl.$inject = ["PlayerListService", "$location", "$scope", "$sessionStorage"];
 
-  angular.module('areas.players.controllers', [])
+  angular.module('areas.players')
     .controller("PlayerListCtrl", ListCtrl);
 
 })();

@@ -3,7 +3,7 @@
  * Author Tomi Harju
  */
 
-angular.module('areas.players.services')
+angular.module('areas.players')
   .factory('PlayerService', ["$http", "$q", function ($http, $q) {
   var PlayerService = {};
   
@@ -77,7 +77,38 @@ angular.module('areas.players.services')
     })
     return defer.promise;
   };
-
+  
+  /**
+   * Ban player
+   */
+  PlayerService.ban = function (playerId, doBan) {
+     var defer = $q.defer();
+    $http.put('http://lp-management-portal.azurewebsites.net/api/players/' + playerId + '/ban/' + doBan)
+      .success(function (result) {
+      defer.resolve(result);
+    })
+      .error(function (result) {
+      defer.reject(result);
+    })
+    return defer.promise; 
+  }
+  
+  /**
+   * Suspend player
+   */
+   PlayerService.suspend = function (playerId) {
+     var defer = $q.defer();
+    $http.put('http://lp-management-portal.azurewebsites.net/api/players/' + playerId + '/suspend/' + new Date().getTime())
+      .success(function (result) {
+      defer.resolve(result);
+    })
+      .error(function (result) {
+      defer.reject(result);
+    })
+    return defer.promise;
+    
+    
+  }
 
 
   return PlayerService;

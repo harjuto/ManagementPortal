@@ -51,5 +51,5 @@ var PlayerListService = function ($q, $http) {
   };
 };
 PlayerListService.$inject = ["$q", "$http"];
-angular.module('areas.players.services', [])
+angular.module('areas.players')
   .factory('PlayerListService', PlayerListService);

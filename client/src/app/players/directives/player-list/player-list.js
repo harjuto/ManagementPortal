@@ -30,7 +30,7 @@ var ValueFilter = function(){
   };
 };
 
-angular.module('areas.players.directives')
+angular.module('areas.players')
     .directive('listBox', ListBoxDirective)
     .directive('searchBox', SearchBoxDirective)
     .filter('valueFilter', ValueFilter);

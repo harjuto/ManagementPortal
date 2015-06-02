@@ -17,7 +17,7 @@
 
   ShowCtrl.$inject = ["playerData", "$location"];
 
-  angular.module('areas.players.controllers')
+  angular.module('areas.players')
     .controller("PlayerShowCtrl", ShowCtrl);
 
 })();

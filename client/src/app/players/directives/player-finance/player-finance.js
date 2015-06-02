@@ -13,6 +13,6 @@
   };
 
   PlayerFinanceDirective.$inject = [];
-  angular.module('areas.players.directives')
+  angular.module('areas.players')
     .directive('playerFinance', PlayerFinanceDirective);
 })();

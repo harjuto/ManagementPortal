@@ -10,7 +10,7 @@
           ng-change="list.list()"
           md-no-ink>
         </md-switch>
-        <div layout="column" layout-align="center center" ng-class = "{ 'highlighted': list.findByFlags} ">
+        <div layout="column" layout-align="center center" ng-class = "{ 'highlighted': list.findByFlags}">
           <i class="fa fa-flag fa-lg "></i>
         </div>  
       </div> 
@@ -28,38 +28,37 @@
   <table class="table table-condensed table-striped table-bordered">
     <thead>
       <tr>
-        <th>Id</th>
-        <th>Nick</a>
+        <th class="id-field">Id</th>
+        <th class="nick-field">Nick</th>
+        <th class="country-field">
+          <a href ng-click="list.orderField='login.country' ; list.filters.reverse=! list.filters.reverse">Country</a>
         </th>
-        <th>
-          <a href ng-click="list.orderField='login.country' ; list.reverse=! list.reverse ">Country</a>
+        <th class="alliance-field">Alliance</th>
+        <th class="currency-field">
+          <a href ng-click="list.orderField='currencyPurchased' ; list.filters.reverse=! list.filters.reverse">Spent</a>
         </th>
-        <th>Alliance</th>
-        <th>
-          <a href ng-click="list.orderField='currencyPurchased' ; list.reverse=! list.reverse ">Spent</a>
+        <th class="flags-field">Flags</th>
+        <th class="banned-field">
+          <md-checkbox ng-model="list.filters.player.login.isBanned"  "aria-label="show banned?" class="md-accent md-hue-3">Banned</md-checkbox>
         </th>
-        <th>Flags</th>
-        <th>
-          <md-checkbox ng-model="list.filterObject.login.isBanned " aria-label="Finished? " class="md-accent md-hue-3 ">Banned</md-checkbox>
-        </th>
-        <th>
-          <md-checkbox ng-model="list.filterObject.login.suspendedUntil " ng-true-value=" '!null' " ng-false-value=" ''
+        <th class="suspended-field">
+          <md-checkbox ng-model="list.filters.player.login.suspendedUntil" ng-true-value=" '!null' " ng-false-value=" ''
         " aria-label="Finished? "
-          class="md-accent md-hue-3 ">Suspended until</md-checkbox>
+          class="md-accent md-hue-3">Suspended until</md-checkbox>
         </th>
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="entry in list.players | limitTo:list.showCount | orderBy:list.orderField:list.reverse ">
+      <tr ng-repeat="entry in list.players | filter:list.filters.player | limitTo:list.showCount | orderBy:list.orderField:list.reverse">
         <td>
-          <a href ng-click="list.showPlayer(entry.details.id) ">
+          <a href ng-click="list.showPlayer(entry.details.id)">
             {{::entry.details.id}}
           </a>
         </td>
         <td>{{::entry.details.nickname}}</td>
         <td>{{::entry.login.country}}</td>
         <td>
-          <a href ng-if="entry.alliance ">
+          <a href ng-click="list.showAlliance(entry.alliance.id)">
             {{::entry.alliance.name}}
           </a>
         </td>
