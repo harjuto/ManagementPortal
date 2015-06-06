@@ -35,7 +35,7 @@
         </th>
         <th class="alliance-field">Alliance</th>
         <th class="currency-field">
-          <a href ng-click="list.orderField='currencyPurchased' ; list.filters.reverse=! list.filters.reverse">Spent</a>
+          <a href ng-click="list.orderField='gameCurrencyPurchased' ; list.filters.reverse=! list.filters.reverse">Spent</a>
         </th>
         <th class="flags-field">Flags</th>
         <th class="banned-field">
@@ -49,7 +49,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="entry in list.players | filter:list.filters.player | limitTo:list.showCount | orderBy:list.orderField:list.reverse">
+      <tr ng-repeat="entry in list.players | filter:list.filters.player | limitTo:list.showCount | orderBy:list.orderField:list.filters.reverse">
         <td>
           <a href ng-click="list.showPlayer(entry.details.id)">
             {{::entry.details.id}}
