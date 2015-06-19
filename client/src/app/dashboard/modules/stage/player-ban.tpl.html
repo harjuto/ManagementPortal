@@ -1,0 +1,6 @@
+<div>
+	<!--Ban/Unban-->
+	<div ng-if="!login.isBanned" ng-click="ban(login.playerId, true)" class="btn btn-danger">Ban</div>
+	<div ng-if="login.isBanned" ng-click="ban(login.playerId, false)" class="btn btn-danger">Unban</div>
+	<div ng-click="suspend(login.playerId)" class="btn btn-warning">Suspend</div>
+</div>

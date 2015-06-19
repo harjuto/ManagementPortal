@@ -1,21 +1,19 @@
 angular.module('app', [
-  'ngRoute',
+  'ui.router',
   'security',
   'ngMaterial',
   'ui.bootstrap',
   'ngStorage',
   'app.config',
+  'dashboard',
   'page.frame',
-  'areas.home',
-  'areas.players',
-  'areas.alliance'
+  'common'
+//  'areas.home',
+//  'areas.players',
+//  'areas.alliance'
 ])
 
-.config(['$routeProvider','$mdThemingProvider', function($routeProvider, $mdThemingProvider) {
-  $routeProvider.otherwise({
-    redirectTo: '/players'
-  });
-  
+.config(['$mdThemingProvider', function($mdThemingProvider) {
   $mdThemingProvider.definePalette('vulpinePalette', {
     '50': 'ffebee',
     '100': 'ffcdd2',

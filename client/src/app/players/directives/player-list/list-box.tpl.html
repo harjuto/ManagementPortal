@@ -1,64 +1,38 @@
-<md-content layout-padding>
-  <div layout="row">
-      <div layout="row" layout-margin>
-        <div layout="column" layout-align="center center" ng-class="{'highlighted': !list.findByFlags}">
-          <i class="fa fa-money fa-lg" "></i>
-        </div>
-        <md-switch 
-          ng-model="list.findByFlags " 
-          aria-label="flagswitch "
-          ng-change="list.list()"
-          md-no-ink>
-        </md-switch>
-        <div layout="column" layout-align="center center" ng-class = "{ 'highlighted': list.findByFlags}">
-          <i class="fa fa-flag fa-lg "></i>
-        </div>  
-      </div> 
-    <div layout="row" layout-margin layout-align="center center">
-      <form ng-submit="list.query(list.queryString) ">
-          <input type="text " size="50 " ng-model="list.queryString " placeholder="Search...">
-        </form>
-    </div>
-    <div flex layout-align="center center">
-      <span ng-if="list.PlayerListService.querying">
-        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
-      </span>
-    </div>
-  </div>
-  <table class="table table-condensed table-striped table-bordered">
-    <thead>
-      <tr>
-        <th class="id-field">Id</th>
-        <th class="nick-field">Nick</th>
-        <th class="country-field">
-          <a href ng-click="list.orderField='login.country' ; list.filters.reverse=! list.filters.reverse">Country</a>
+<!--Player table-->
+<table class="table table-condensed table-striped table-bordered">
+  <thead>
+    <tr>
+      <th class="id-field">Id</th>
+      <th class="nick-field">Nick</th>
+      <th class="country-field">
+        <a href ng-click="list.orderField='login.country' ; list.filters.reverse=! list.filters.reverse">Country</a>
+      </th>
+      <th class="alliance-field">Alliance</th>
+      <th class="currency-field">
+        <a href ng-click="list.orderField='gameCurrencyPurchased' ; list.filters.reverse=! list.filters.reverse">Spent</a>
+      </th>
+      <th class="flags-field">Flags</th>
+      <th class="banned-field">
+        <md-checkbox ng-model="list.filters.player.login.isBanned" "aria-label="show banned? " class="md-accent md-hue-3 ">Banned</md-checkbox>
         </th>
-        <th class="alliance-field">Alliance</th>
-        <th class="currency-field">
-          <a href ng-click="list.orderField='gameCurrencyPurchased' ; list.filters.reverse=! list.filters.reverse">Spent</a>
-        </th>
-        <th class="flags-field">Flags</th>
-        <th class="banned-field">
-          <md-checkbox ng-model="list.filters.player.login.isBanned"  "aria-label="show banned?" class="md-accent md-hue-3">Banned</md-checkbox>
-        </th>
-        <th class="suspended-field">
-          <md-checkbox ng-model="list.filters.player.login.suspendedUntil" ng-true-value=" '!null' " ng-false-value=" ''
-        " aria-label="Finished? "
-          class="md-accent md-hue-3">Suspended until</md-checkbox>
+        <th class="suspended-field ">
+          <md-checkbox ng-model="list.filters.player.login.suspendedUntil " ng-true-value=" '!null' " ng-false-value="
+        '' " aria-label="Finished? "
+          class="md-accent md-hue-3 ">Suspended until</md-checkbox>
         </th>
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="entry in list.players | filter:list.filters.player | limitTo:list.showCount | orderBy:list.orderField:list.filters.reverse">
+      <tr ng-repeat="entry in list.players | filter:list.filters.player | limitTo:500 | orderBy:list.orderField:list.filters.reverse ">
         <td>
-          <a href ng-click="list.showPlayer(entry.details.id)">
-            {{::entry.details.id}}
+          <a href ng-click="list.showPlayer(entry.player.id) ">
+            {{::entry.player.id}}
           </a>
         </td>
-        <td>{{::entry.details.nickname}}</td>
+        <td>{{::entry.player.name}}</td>
         <td>{{::entry.login.country}}</td>
         <td>
-          <a href ng-click="list.showAlliance(entry.alliance.id)">
+          <a href ng-click="list.showAlliance(entry.alliance.id) ">
             {{::entry.alliance.name}}
           </a>
         </td>
@@ -70,4 +44,3 @@
     </tbody>
   </table>
 
-</md-content>

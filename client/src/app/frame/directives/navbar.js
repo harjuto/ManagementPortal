@@ -8,16 +8,13 @@ var NavigationDirective = function() {
   };
 };
 
-var NavigationDirectiveController = function($route, $location) {
+var NavigationDirectiveController = function() {
   var nav = this;
-  nav.route = $route;
-  nav.goto = function(path) {
-    $location.path(path);
-  };
+ 
 };
 
 
-NavigationDirectiveController.$inject = ["$route", "$location"];
+NavigationDirectiveController.$inject = [];
 
 
 angular.module('page.frame')

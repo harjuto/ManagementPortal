@@ -1,17 +1,51 @@
-(function() {
-  var RewardDirective = function() {
+(function () {
+
+  /**
+   * This controls the stage frame, handles refreshing when new player clicked.
+   */
+  var StageFrameDirective = function () {
+    return {
+      restrict: "E",
+      templateUrl: "/app/dashboard/modules/stage/stage-frame.tpl.html",
+      scope: {
+        DataService: '='
+      },
+      controller: ["$scope", "PlayerService","DataService", function ($scope, PlayerService, DataService) {
+        $scope.details = undefined;
+        $scope.$watch(function () {
+          return DataService.playerId;
+        },
+          function (id) {
+            if (id) {
+              PlayerService.show(id)
+                .then(function (data) {
+                $scope.details = data;
+              });
+            }
+          }
+          );
+        $scope.closeStage = function () {
+          DataService.resetStage();
+          }
+      }]
+    };
+  };
+
+  /**
+   * Handles player rewarding related funtions
+   */
+  var RewardDirective = function () {
     return {
       restrict: 'E',
-      templateUrl: '/app/players/directives/player-actions/player-rewards.tpl.html',
+      templateUrl: '/app/dashboard/modules/stage/player-rewards.tpl.html',
       scope: {
         player: "="
       },
-      controller: ["$scope","PlayerService","$route", function($scope, PlayerService, $route) {
+      controller: ["$scope", "PlayerService", function ($scope, PlayerService) {
+        $scope.$watch('player', function (oldPlayer, newPlayer) {
+          resetValues(newPlayer);
+        });
         
-        /**
-         * Initialize values
-         */
-        resetValues();
         
         /**
          * Submit reward, called after submit is clicked in UI
@@ -20,8 +54,8 @@
           $scope.loading = true;
           PlayerService.reward($scope.reward)
             .then(function () {
-              reload();
-            }, function () {
+            alert('Reward sent succesfully');
+          }, function () {
               alert("Something went wrong");
             });
         };
@@ -45,26 +79,15 @@
         /**
          * Function which sets initial reward values
          */
-        function resetValues() {
+        function resetValues(player) {
           $scope.reward = {
-              alloy: 0,
-              stardust: 0,
-              message: undefined,
-              playerId: $scope.player.id
+            alloy: 0,
+            stardust: 0,
+            message: undefined,
+            playerId: player.id
           };
         }
-        
-        /**
-         * Reload player data to show updated allow and stardust values
-         */
-        function reload() {
-          PlayerService.show($scope.player.id)
-            .then(function (data) {
-            resetValues();
-            $scope.player = data;
-          });
-         }
-      
+
       }]
     };
   };
@@ -76,17 +99,17 @@
   var ResolveFlagsDirective = function () {
     return {
       restrict: 'E',
-      templateUrl: '/app/players/directives/player-actions/player-resolve-flags.tpl.html',
+      templateUrl: '/app/dashboard/modules/stage/player-resolve-flags.tpl.html',
       scope: {
         player: '='
       },
       controller: ["$scope", "PlayerService", function ($scope, PlayerService) {
-       
-         /**
-         * Initial loading
-         */
-        reload();
-       
+
+        $scope.$watch('player', function (oldPlayer, newPlayer) {
+          if (newPlayer) {
+            reload(newPlayer.id);
+          }
+        })
         /**
          * Called by clicking resolve button in Ui
          * Once finished, calls reload to refresh flags. 
@@ -94,35 +117,35 @@
         $scope.resolve = function (playerId, flagId) {
           PlayerService.resolve(playerId, flagId)
             .then(function (data) {
-            reload();
+            reload(playerId);
           });
         };
         
         /**
          * Reload flags
          */
-        function reload() {
-          PlayerService.flags($scope.player.id)
+        function reload(id) {
+          PlayerService.flags(id)
             .then(function (data) {
             $scope.flags = data;
           });
         };
-        
+
       }]
     };
   }
-  
+
   ResolveFlagsDirective.$inject = [];
 
   var PlayerBanDirective = function () {
     return {
       restrict: "E",
       replace: true,
-      templateUrl: '/app/players/directives/player-actions/player-ban.tpl.html',
+      templateUrl: '/app/dashboard/modules/stage/player-ban.tpl.html',
       scope: {
-        player: "="
+        login: "="
       },
-      controller: ["$scope","PlayerService", function ($scope, PlayerService) {
+      controller: ["$scope", "PlayerService", function ($scope, PlayerService) {
         /**
          * Ban player
          */
@@ -130,12 +153,12 @@
           PlayerService.ban(playerId, doBan)
             .then(function (data) {
             reload();
-           })
+          })
         }
          
-       /**
-        * Suspend player
-        */
+        /**
+         * Suspend player
+         */
         $scope.suspend = function (playerId) {
           PlayerService.suspend(playerId)
             .then(function (data) {
@@ -147,16 +170,17 @@
          * Reload player data to show updated ban/suspend status.
          */
         function reload() {
-          PlayerService.show($scope.player.id)
+          PlayerService.show($scope.login.playerId)
             .then(function (data) {
-            $scope.player = data;
+            $scope.login = data.login;
           });
-         }
+        }
       }]
     }
   };
 
-  angular.module('areas.players')
+  angular.module('stage')
+    .directive('stageFrame', StageFrameDirective)
     .directive('playerReward', RewardDirective)
     .directive('resolveFlags', ResolveFlagsDirective)
     .directive('playerBan', PlayerBanDirective);

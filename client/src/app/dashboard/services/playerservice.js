@@ -3,7 +3,7 @@
  * Author Tomi Harju
  */
 
-angular.module('areas.players')
+angular.module('dashboard')
   .factory('PlayerService', ["$http", "$q", function ($http, $q) {
   var PlayerService = {};
   
@@ -13,7 +13,7 @@ angular.module('areas.players')
    */
   PlayerService.show = function (id) {
     var defer = $q.defer();
-    $http.get('http://lp-management-portal.azurewebsites.net/api/players/' + id + '/details')
+    $http.get('http://lp-management-portal.azurewebsites.net/api/accounts/' + id )
       .success(function (result) {
       defer.resolve(result);
     })
@@ -83,7 +83,7 @@ angular.module('areas.players')
    */
   PlayerService.ban = function (playerId, doBan) {
      var defer = $q.defer();
-    $http.put('http://lp-management-portal.azurewebsites.net/api/players/' + playerId + '/ban/' + doBan)
+    $http.put('http://lp-management-portal.azurewebsites.net/api/accounts/' + playerId + '/ban/' + doBan)
       .success(function (result) {
       defer.resolve(result);
     })
@@ -96,9 +96,9 @@ angular.module('areas.players')
   /**
    * Suspend player
    */
-   PlayerService.suspend = function (playerId) {
-     var defer = $q.defer();
-    $http.put('http://lp-management-portal.azurewebsites.net/api/players/' + playerId + '/suspend/' + new Date().getTime())
+  PlayerService.suspend = function (playerId) {
+    var defer = $q.defer();
+    $http.put('http://lp-management-portal.azurewebsites.net/api/accounts/' + playerId + '/suspend/' + new Date().getTime())
       .success(function (result) {
       defer.resolve(result);
     })
@@ -106,10 +106,7 @@ angular.module('areas.players')
       defer.reject(result);
     })
     return defer.promise;
-    
-    
-  }
-
+  };
 
   return PlayerService;
 }]);

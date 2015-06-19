@@ -26,7 +26,7 @@ var config = {
   src: [appPath],
   vendor: [
     'vendor/angular/angular.js',
-    'vendor/angular-route/angular-route.js',
+    'vendor/angular-ui-router/release/angular-ui-router.min.js',
     'vendor/lodash/lodash.js',
     'vendor/jquery/dist/jquery.js',
     'vendor/react/react.min.js',

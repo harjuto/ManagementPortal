@@ -2,48 +2,35 @@
 
 var PlayerListService = function ($q, $http) {
   return {
-    querying: false,
     byFlags: function () {
-	     var self = this;
-      self.querying = true;
       var defer = $q.defer();
-      $http.get('http://lp-management-portal.azurewebsites.net/api/players/filter/flags')
+      $http.get('http://lp-management-portal.azurewebsites.net/api/accounts/filter/flags')
         .success(function (result) {
-        self.querying = false;
         defer.resolve(result);
       })
         .error(function (result) {
-        self.querying = false;
         defer.reject(result);
       });
       return defer.promise;
     },
     byMoney: function () {
-      var self = this;
-      self.querying = true;
       var defer = $q.defer();
-      $http.get('http://lp-management-portal.azurewebsites.net/api/players/filter/money')
+      $http.get('http://lp-management-portal.azurewebsites.net/api/accounts/filter/money')
         .success(function (result) {
-        self.querying = false;
         defer.resolve(result);
       })
         .error(function (result) {
-        self.querying = false;
         defer.reject(result);
       });
       return defer.promise;
     },
     query: function (queryString) {
       var defer = $q.defer();
-      var self = this;
-      self.querying = true;
-      $http.get('http://lp-management-portal.azurewebsites.net/api/players/' + queryString)
+      $http.get('http://lp-management-portal.azurewebsites.net/api/accounts/' + queryString)
         .success(function (result) {
-        self.querying = false;
         defer.resolve(result);
       })
         .error(function (result) {
-        self.querying = false;
         defer.reject(result);
       });
       return defer.promise;
@@ -51,5 +38,5 @@ var PlayerListService = function ($q, $http) {
   };
 };
 PlayerListService.$inject = ["$q", "$http"];
-angular.module('areas.players')
+angular.module('dashboard')
   .factory('PlayerListService', PlayerListService);

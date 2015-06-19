@@ -1,11 +1,11 @@
 (function() {
-  var ShowCtrl = function(playerData, $location) {
+  var ShowCtrl = function(data, $location) {
     var show = this;
     
     /**
      * Player data received from /api/players/id/details
      */
-    show.player = playerData;
+    show.data = data;
 
     /**
      * Return to list page from show page.
@@ -15,7 +15,7 @@
     }
   };
 
-  ShowCtrl.$inject = ["playerData", "$location"];
+  ShowCtrl.$inject = ["data", "$location"];
 
   angular.module('areas.players')
     .controller("PlayerShowCtrl", ShowCtrl);

@@ -1,0 +1,26 @@
+<div layout="row">
+      <div layout="row" layout-margin>
+        <div layout="column" layout-align="center center" ng-class="{'highlighted': !list.findByFlags}">
+          <i class="fa fa-money fa-lg" "></i>
+        </div>
+        <md-switch 
+          ng-model="list.findByFlags " 
+          aria-label="flagswitch "
+          ng-change="list.list()"
+          md-no-ink>
+        </md-switch>
+        <div layout="column" layout-align="center center" ng-class = "{ 'highlighted': list.findByFlags}">
+          <i class="fa fa-flag fa-lg "></i>
+        </div>  
+      </div> 
+    <div layout="row" layout-margin layout-align="center center">
+      <form ng-submit="list.query(list.queryString) ">
+          <input type="text " size="50 " ng-model="list.queryString " placeholder="Search...">
+        </form>
+    </div>
+    <div flex layout-align="center center">
+      <span ng-if="list.PlayerListService.querying">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+      </span>
+    </div>
+  </div>

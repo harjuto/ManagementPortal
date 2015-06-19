@@ -77,9 +77,9 @@
       }
       promise.then(function (players) {
         /**
-         * Once loaded, store list to cache and to actual model
+         * Once loaded, store to list.
          */
-        list.players = $sessionStorage.players = players;
+        list.players = players;
       });
     };
 
@@ -94,9 +94,9 @@
       PlayerListService.query(queryString)
         .then(function (players) {
         /**
-         * Once loaded, store list to cache and to actual model
+         * Once loaded, wrap result to an array since its a single object.
          */
-        list.players = $sessionStorage.players = players;
+        list.players = [players];
       });
     };
 

@@ -13,7 +13,17 @@ SearchBoxDirective.$inject = [];
 var ListBoxDirective = function () {
   return {
     restrict: 'E',
-    templateUrl: '/app/players/directives/player-list/list-box.tpl.html'
+    templateUrl: '/app/players/directives/player-list/list-box.tpl.html',
+    scope: {
+      list: '='
+    }
+  };
+};
+
+var SearchToolsDirective = function () {
+  return {
+    restrict: 'E',
+    templateUrl: '/app/players/directives/player-list/search-tools.tpl.html'
   };
 };
 
@@ -32,7 +42,7 @@ var ValueFilter = function(){
 
 angular.module('areas.players')
     .directive('listBox', ListBoxDirective)
-    .directive('searchBox', SearchBoxDirective)
+    .directive('searchTools', SearchToolsDirective)
     .filter('valueFilter', ValueFilter);
     
 })();

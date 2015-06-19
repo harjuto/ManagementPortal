@@ -8,11 +8,9 @@ var HeaderDirective = function() {
   };
 };
 
-var HeaderDirectiveController = function($scope, $route, $location, adalAuthenticationService) {
+var HeaderDirectiveController = function($scope, adalAuthenticationService) {
   var header = this;
-  header.gohome = function() {
-    $location.path("/");
-  };
+  
   header.logout = function() {
     adalAuthenticationService.logOut();
 
@@ -24,7 +22,7 @@ var HeaderDirectiveController = function($scope, $route, $location, adalAuthenti
 
 
 
-HeaderDirectiveController.$inject = ["$scope", "$route", "$location", "adalAuthenticationService"];
+HeaderDirectiveController.$inject = ["$scope", "adalAuthenticationService"];
 
 angular.module('page.frame',[])
   .controller("HeaderCtrl", HeaderDirectiveController)

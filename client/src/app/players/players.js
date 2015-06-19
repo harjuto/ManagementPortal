@@ -17,7 +17,7 @@
         controller: 'PlayerShowCtrl',
         controllerAs: 'show',
         resolve: {
-          playerData: ['PlayerService', '$route', function(PlayerService, $route) {
+          data: ['PlayerService', '$route', function(PlayerService, $route) {
             return PlayerService.show($route.current.params.id);
           }]
         }
