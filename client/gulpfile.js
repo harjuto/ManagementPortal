@@ -36,7 +36,8 @@ var config = {
     'vendor/angular-aria/angular-aria.min.js',
     'vendor/angular-material/angular-material.min.js',
     'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
-    'vendor/ngstorage/ngStorage.min.js'
+    'vendor/ngstorage/ngStorage.min.js',
+    'vendor/angular-keyboard/keyboard.min.js'
   ],
   css: [
     'src/**/*.css', 'vendor/font-awesome/css/font-awesome.min.css',

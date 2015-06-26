@@ -1,3 +1,5 @@
+(function () {
+  'use strict';
 
 
 var AllianceService = function ($q, $http) {
@@ -38,3 +40,4 @@ var AllianceService = function ($q, $http) {
 AllianceService.$inject = ["$q", "$http"];
 angular.module('alliance')
   .factory('AllianceService', AllianceService);
+})();

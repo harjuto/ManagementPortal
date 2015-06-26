@@ -1,5 +1,11 @@
-<!--Player table-->
-<table class="table table-condensed table-bordered table-hover">
+<div layout="row">
+  <flag-table layout-padding flex="30"></flag-table>
+  <stage-frame layout-padding flex="40"></stage-frame>
+  <money-table layout-padding flex="30"></money-table>
+</div>
+
+
+<!--<table class="table table-condensed table-bordered table-hover">
   <thead>
     <tr>
       <th class="id-field">Id</th>
@@ -24,7 +30,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="entry in table.DataService.players | filter:table.filters.player | limitTo:500 | orderBy:table.orderField:table.filters.reverse">
+      <tr ng-repeat="entry in table.PlayerStore.players | filter:table.filters.player | limitTo:500 | orderBy:table.orderField:table.filters.reverse">
         <td>
           <a href ng-click="table.show(entry.player.id)">
             {{::entry.player.id}}
@@ -43,5 +49,5 @@
         <td>{{::entry.login.suspendedUntil | date}}</td>
       </tr>
     </tbody>
-  </table>
+  </table>-->
 

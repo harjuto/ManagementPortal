@@ -1,9 +1,6 @@
-<md-content>
-<div layout="row">
-	<div layout-padding layout="column" flex>
+<md-content layout-margin>
+	<div layout="column" flex="65">
 		<div ui-view="toolbar"></div>
-		<div ui-view="table"></div>
+		<div ui-view="content"></div>
 	</div>
-	<div ui-view="stage" ng-if="dashboard.DataService.playerId" layout-padding></div> 
-</div>
 </md-content>

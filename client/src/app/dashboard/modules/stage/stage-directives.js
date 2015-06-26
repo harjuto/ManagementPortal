@@ -5,29 +5,11 @@
    */
   var StageFrameDirective = function () {
     return {
-      restrict: "E",
-      templateUrl: "/app/dashboard/modules/stage/stage-frame.tpl.html",
-      scope: {
-        DataService: '='
-      },
-      controller: ["$scope", "PlayerService","DataService", function ($scope, PlayerService, DataService) {
-        $scope.details = undefined;
-        $scope.$watch(function () {
-          return DataService.playerId;
-        },
-          function (id) {
-            if (id) {
-              PlayerService.show(id)
-                .then(function (data) {
-                $scope.details = data;
-              });
-            }
-          }
-          );
-        $scope.closeStage = function () {
-          DataService.resetStage();
-          }
-      }]
+      restrict: 'E',
+      replace: false,
+      templateUrl: '/app/dashboard/modules/stage/stage-frame.tpl.html',
+      controller: 'StageMainCtrl',
+      controllerAs: 'stage'
     };
   };
 
@@ -39,13 +21,12 @@
       restrict: 'E',
       templateUrl: '/app/dashboard/modules/stage/player-rewards.tpl.html',
       scope: {
-        player: "="
+        player: '='
       },
-      controller: ["$scope", "PlayerService", function ($scope, PlayerService) {
-        $scope.$watch('player', function (oldPlayer, newPlayer) {
+      controller: ['$scope', 'PlayerService', function ($scope, PlayerService) {
+        $scope.$watch('player.id', function (oldPlayer, newPlayer) {
           resetValues(newPlayer);
         });
-        
         
         /**
          * Submit reward, called after submit is clicked in UI
@@ -56,7 +37,7 @@
             .then(function () {
             alert('Reward sent succesfully');
           }, function () {
-              alert("Something went wrong");
+              alert('Something went wrong');
             });
         };
         
@@ -94,8 +75,6 @@
 
   RewardDirective.$inject = [];
 
-
-
   var ResolveFlagsDirective = function () {
     return {
       restrict: 'E',
@@ -103,13 +82,13 @@
       scope: {
         player: '='
       },
-      controller: ["$scope", "PlayerService", function ($scope, PlayerService) {
+      controller: ['$scope', 'PlayerService', function ($scope, PlayerService) {
 
-        $scope.$watch('player', function (oldPlayer, newPlayer) {
-          if (newPlayer) {
-            reload(newPlayer.id);
+        $scope.$watch('player.id', function (oldId, newId) {
+          if (newId) {
+            reload(newId);
           }
-        })
+        });
         /**
          * Called by clicking resolve button in Ui
          * Once finished, calls reload to refresh flags. 
@@ -139,13 +118,13 @@
 
   var PlayerBanDirective = function () {
     return {
-      restrict: "E",
+      restrict: 'E',
       replace: true,
       templateUrl: '/app/dashboard/modules/stage/player-ban.tpl.html',
       scope: {
-        login: "="
+        login: '='
       },
-      controller: ["$scope", "PlayerService", function ($scope, PlayerService) {
+      controller: ['$scope', 'PlayerService', function ($scope, PlayerService) {
         /**
          * Ban player
          */
@@ -153,7 +132,7 @@
           PlayerService.ban(playerId, doBan)
             .then(function (data) {
             reload();
-          })
+          });
         }
          
         /**
@@ -176,12 +155,32 @@
           });
         }
       }]
-    }
+    };
+  };
+  
+  var playerAllianceDirective = function () {
+    return {
+      restrict: 'E',
+      replace: false,
+      templateUrl:'/app/dashboard/modules/stage/player-alliance.tpl.html',
+      scope: {
+        allianceId: '='
+      },
+      controller: ['$scope', 'AllianceService', function ($scope, AllianceService) {
+        $scope.$watch('allianceId', function (oldId, newId) {
+          AllianceService.players(newId)
+            .then(function (data) {
+              $scope.alliancePlayers = data;
+            });
+        });
+      }]
+    };
   };
 
   angular.module('stage')
     .directive('stageFrame', StageFrameDirective)
     .directive('playerReward', RewardDirective)
     .directive('resolveFlags', ResolveFlagsDirective)
-    .directive('playerBan', PlayerBanDirective);
+    .directive('playerBan', PlayerBanDirective)
+    .directive('playerAlliance', playerAllianceDirective);
 })();

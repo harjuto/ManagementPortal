@@ -23,16 +23,10 @@
           controller: "ToolbarCtrl",
           controllerAs: "toolbar",
         },
-        'table@dashboard': {
+        'content@dashboard': {
           templateUrl: '/app/dashboard/modules/table/table.tpl.html',
-          controller: "TableCtrl",
-          controllerAs: "table"
-        },
-        'stage@dashboard': {
-          templateUrl: '/app/dashboard/modules/stage/stage.tpl.html',
-          controller: "StageCtrl",
-          controllerAs: "stage"
         }
+
        
       }
       })
@@ -49,15 +43,10 @@
           controller: "AllianceToolbarCtrl",
           controllerAs: "toolbar"
         },
-        'table@dashboard': {
+        'content@dashboard': {
           templateUrl: '/app/dashboard/modules/table/table.tpl.html',
           controller: "AllianceCtrl",
           controllerAs: "alliance"
-        },
-        'stage@dashboard': {
-          templateUrl: '/app/dashboard/modules/stage/stage.tpl.html',
-          controller: "StageCtrl",
-          controllerAs: "stage"
         }
        
       }

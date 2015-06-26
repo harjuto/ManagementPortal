@@ -1,0 +1,18 @@
+<md-card>
+	<md-card-content>
+    	<h3 class="md-title">Top money spent</h3>
+
+		<table kb-list ng-model="moneytable.PlayerStore.playerId" class="table table-condensed">
+			<tr>
+				<th>Id</th>
+				<th>Name</th>
+				<th>Spent</th>
+			</tr>
+			<tr ng-repeat="entry in moneytable.players" kb-item="entry.player.id">
+				<td>{{entry.player.id}}</td>
+				<td>{{entry.player.name}}</td>
+				<td>{{entry.gameCurrencyPurchased}}</td>
+			</tr>
+		</table>
+	</md-card-content>
+</md-card>

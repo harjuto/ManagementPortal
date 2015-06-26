@@ -1,12 +1,12 @@
 (function () {
-  var dashboardController = function (DataService) {
+  var dashboardController = function (PlayerStore) {
     var dashboard = this;
-    dashboard.DataService = DataService;
-    DataService.resetStage();
-    
+    dashboard.PlayerStore = PlayerStore;
+    PlayerStore.resetStage();
 
-  }
-  dashboardController.$inject = ["DataService"];
+
+  };
+  dashboardController.$inject = ["PlayerStore"];
 
 
   angular.module('dashboard')

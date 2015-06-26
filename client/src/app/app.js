@@ -1,6 +1,7 @@
 angular.module('app', [
   'ui.router',
   'security',
+  'keyboard',
   'ngMaterial',
   'ui.bootstrap',
   'ngStorage',

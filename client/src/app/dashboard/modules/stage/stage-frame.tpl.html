@@ -1,6 +1,22 @@
-<div ng-if="details">
-	<button ng-click="closeStage()">Close</button>
-	<player-reward player="details.player"></player-reward>
-	<resolve-flags player="details.player"></resolve-flags>
-	<player-ban login="details.login"></player-ban>
-</div>
+<md-card>
+  <md-card-content>
+  	<h3 class="md-title">{{stage.details.player.name}}</h3>
+    <div ng-if="stage.details">
+      <!--Player action tabs-->
+      <md-tabs md-no-ink>
+        <md-tab label="Reward">
+          <player-reward player="stage.details.player"></player-reward>
+        </md-tab>
+        <md-tab label="Flags">
+          <resolve-flags player="stage.details.player"></resolve-flags>
+        </md-tab>
+        <md-tab label="Ban / Suspend">
+          <player-ban login="stage.details.login"></player-ban>
+        </md-tab>
+        <md-tab label="Alliance" ng-disabled="!stage.details.alliance.id">
+          <player-alliance ng-if="stage.details.alliance.id" alliance-id="stage.details.alliance.id"></player-alliance>
+        </md-tab>
+      </md-tabs>
+    </div>
+  </md-card-content>
+</md-card>

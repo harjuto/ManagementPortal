@@ -1,45 +1,40 @@
 <div layout-margin>
-<h2>
-	{{player.name}}
-</h2>
-
-<table class="table table-condensed">
-	<thead>
-	<tr>
-		<th><a href ng-click="clear()"><i class="fa fa-trash"> Clear</i></a></th>
-		<th>Current total</th>
-		<th>Reward size</th>
-		<th>Message</th>
-	</tr>
-	</thead>
-	<tbody>
-	<tr>
-		<td>Alloy</td>
-		<td>
-			{{player.alloy}} 
-		</td>
-		<td>
-			<input type="number" ng-model="reward.alloy"/>
-		</td>
-		<td rowspan="2">
-			<md-input-container flex>
-	        	<textarea ng-model="reward.message" columns="1" md-maxlength="150" aria-label="message" ></textarea>
-  			</md-input-container>
-		</td>
-	</tr>
-	<tr>
-		<td>Stardust</td>
-		<td>
-			{{player.stardust}}
-		</td>
-		<td>
-			<input type="number" ng-model="reward.stardust"/>
-		</td>
-	</tr>
-	<tr>
-		<td colspan="4"><div class="btn btn-primary " ng-disabled="!isValid()" ng-click="submit()">Send reward</div></td>
-	</tr>
-	</tbody>
-</table>
+	<table class="table table-condensed">
+		<thead>
+			<tr>
+				<th>
+					<a href ng-click="clear()"><i class="fa fa-trash"> Clear</i></a>
+				</th>
+				<th>Current total</th>
+				<th>Reward size</th>
+				<th>Message</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Alloy</td>
+				<td>{{player.alloy}}</td>
+				<td>
+					<input type="number" ng-model="reward.alloy" />
+				</td>
+				<td rowspan="2">
+					<md-input-container flex>
+						<textarea ng-model="reward.message" columns="1" md-maxlength="150" aria-label="message"></textarea>
+					</md-input-container>
+				</td>
+			</tr>
+			<tr>
+				<td>Stardust</td>
+				<td>{{player.stardust}}</td>
+				<td>
+					<input type="number" ng-model="reward.stardust" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4">
+					<div class="btn btn-primary " ng-disabled="!isValid()" ng-click="submit()">Send reward</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 </div>
-<hr/>
