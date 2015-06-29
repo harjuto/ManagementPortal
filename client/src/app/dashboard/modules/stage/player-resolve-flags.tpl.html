@@ -1,5 +1,5 @@
 <div layout-margin>
-<table class="table table-condensed table-striped table-bordered">
+<table class="table table-condensed table-bordered">
 	<thead>
 	<tr>
 		<th>Flag code</th>
@@ -9,7 +9,7 @@
 	</tr>
 	</thead>
 	<tbody>
-	<tr ng-repeat="flag in flags">
+	<tr ng-repeat="flag in flags | orderBy: 'isResolved'">
 		<td>{{flag.code}}</td>
 		<td>{{flag.time}}</td>
 		<td>{{flag.replayId}}</td>

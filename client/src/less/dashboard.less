@@ -1,15 +1,31 @@
 #dashboard{
-	.stage{
-		border-left: 1px solid #C0C0C0;
-		padding:10px;
+	position: absolute;
+  	top: 64px;
+	bottom: 0px;
+ 	left: 0;
+  	right: 0;
+	
+	
+	flag-table, stage-frame, money-table{
+		.spinner-holder{
+			height:10px;
+		}
 	}
-	.table{
-		
-	}	
-	.toolbar{
+	stage-frame{
 		
 	}
-	.alliance{
+	money-table{
 		
 	}
+	
+	[kb-item] {
+    		cursor: pointer;
+	}
+	[kb-item].kb-selected {
+	    background: lightblue;
+	}
+	
+	
 }
+
+

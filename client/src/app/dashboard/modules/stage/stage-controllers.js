@@ -4,22 +4,30 @@
 	var stageMainController = function ($scope, PlayerService, PlayerStore) {
 		var stage = this;
 		stage.details = undefined;
-
+		stage.loading = false;
         $scope.$watch(function () {
 			return PlayerStore.playerId;
         },
-			function (id) {
-				if (id) {
-					PlayerService.show(id)
+			function (newId, oldId) {
+				if (newId) {
+					stage.msg = undefined;
+					stage.loading = true;
+					PlayerService.show(newId)
 						.then(function (data) {
-						stage.details = data;
+							stage.details = data;
+							stage.loading = false;
+						}, function (error) {
+							stage.msg = "Nothing found."
+							stage.details = undefined;
+							stage.loading = false;
 					});
 				};
-		});
-
-        stage.closeStage = function () {
-			PlayerStore.resetStage();
+			});
+		
+		stage.query = function (queryString) {
+			PlayerStore.playerId = queryString;
 		};
+		
 	};
 
 	stageMainController.$inject = ['$scope', 'PlayerService', 'PlayerStore'];

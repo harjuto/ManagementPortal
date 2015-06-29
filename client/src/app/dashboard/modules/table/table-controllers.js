@@ -4,9 +4,10 @@
   var moneyTableController = function (PlayerListService, PlayerStore) {
     var moneytable = this;
     moneytable.PlayerStore = PlayerStore;
+    
     PlayerListService.byMoney()
       .then(function (data) {
-      moneytable.players = data;
+    		moneytable.players = data;
     });
     
   };
@@ -16,9 +17,10 @@
   var flagTableController = function (PlayerListService, PlayerStore) {
     var flagtable = this;
     flagtable.PlayerStore = PlayerStore;
+    
     PlayerListService.byFlags()
       .then(function (data) {
-      flagtable.players = data;
+        flagtable.players = data;
     });
   };
   
@@ -36,26 +38,26 @@
   
   var tableController = function (PlayerListService, PlayerStore, $state) {
     var table = this;
-    table.PlayerStore = PlayerStore;
-
-    table.filters = {
-      reverse: true,
-      player: {
-        login: {
-          isBanned: false,
-          suspendedUntil: undefined
-        }
-      }
-    };
-    
-    table.show = function (id) {
-      table.PlayerStore.setStage(id);
-    };
-    
-    table.showAlliance = function (id) {
-      PlayerStore.resetStage();
-      $state.go('dashboard.alliance');
-    };
+//    table.PlayerStore = PlayerStore;
+//
+//    table.filters = {
+//      reverse: true,
+//      player: {
+//        login: {
+//          isBanned: false,
+//          suspendedUntil: undefined
+//        }
+//      }
+//    };
+//    
+//    table.show = function (id) {
+//      table.PlayerStore.setStage(id);
+//    };
+//    
+//    table.showAlliance = function (id) {
+//      PlayerStore.resetStage();
+//      $state.go('dashboard.alliance');
+//    };
 
 
   };

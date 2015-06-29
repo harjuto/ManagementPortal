@@ -1,5 +1,8 @@
 <md-card>
 	<md-card-content>
+		<div class="spinner-holder">
+			<md-progress-linear md-mode="indeterminate" ng-if="!moneytable.players"></md-progress-linear>
+	    </div>
     	<h3 class="md-title">Top money spent</h3>
 
 		<table kb-list ng-model="moneytable.PlayerStore.playerId" class="table table-condensed">

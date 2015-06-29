@@ -1,53 +1,5 @@
 <div layout="row">
-  <flag-table layout-padding flex="30"></flag-table>
-  <stage-frame layout-padding flex="40"></stage-frame>
-  <money-table layout-padding flex="30"></money-table>
+  <flag-table flex="30"></flag-table>
+  <stage-frame flex="40"></stage-frame>
+  <money-table flex="30"></money-table>
 </div>
-
-
-<!--<table class="table table-condensed table-bordered table-hover">
-  <thead>
-    <tr>
-      <th class="id-field">Id</th>
-      <th class="nick-field">Nick</th>
-      <th class="country-field">
-        <a href ng-click="table.orderField='login.country' ; table.filters.reverse =! table.filters.reverse">Country</a>
-      </th>
-      <th class="alliance-field">Alliance</th>
-      <th class="currency-field">
-        <a href ng-click="table.orderField='gameCurrencyPurchased' ; table.filters.reverse =! table.filters.reverse">Spent</a>
-      </th>
-      <th class="flags-field">Flags</th>
-      <th class="banned-field">
-        <label for="isBanned">Banned</label>
-        <input type="checkbox" id="isBanned" ng-model="table.filters.player.login.isBanned"/>
-      </th>
-      <th class="suspended-field ">
-        <label for="suspended">Suspended</label>
-        <input type="checkbox" id="suspended" ng-model="table.filters.player.login.suspendedUntil" 
-        ng-true-value=" '!null' " ng-false-value="''"/>
-      </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="entry in table.PlayerStore.players | filter:table.filters.player | limitTo:500 | orderBy:table.orderField:table.filters.reverse">
-        <td>
-          <a href ng-click="table.show(entry.player.id)">
-            {{::entry.player.id}}
-          </a>
-        </td>
-        <td>{{::entry.player.name}}</td>
-        <td>{{::entry.login.country}}</td>
-        <td>
-          <a href ng-click="table.showAlliance(entry.alliance.id)">
-            {{::entry.alliance.name}}
-          </a>
-        </td>
-        <td>{{::entry.gameCurrencyPurchased || valueFilter}}</td>
-        <td>{{::entry.unresolvedFlags | valueFilter}}</td>
-        <td>{{::entry.login.isBanned | valueFilter}}</td>
-        <td>{{::entry.login.suspendedUntil | date}}</td>
-      </tr>
-    </tbody>
-  </table>-->
-

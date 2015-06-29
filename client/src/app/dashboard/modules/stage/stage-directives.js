@@ -24,7 +24,7 @@
         player: '='
       },
       controller: ['$scope', 'PlayerService', function ($scope, PlayerService) {
-        $scope.$watch('player.id', function (oldPlayer, newPlayer) {
+        $scope.$watch('player.id', function (newPlayer, oldPlayer) {
           resetValues(newPlayer);
         });
         
@@ -46,7 +46,7 @@
          * Resets initial values
          */
         $scope.clear = function () {
-          resetValues();
+          resetValues($scope.player);
         };
         
         /**
@@ -84,7 +84,7 @@
       },
       controller: ['$scope', 'PlayerService', function ($scope, PlayerService) {
 
-        $scope.$watch('player.id', function (oldId, newId) {
+        $scope.$watch('player.id', function (newId, oldId) {
           if (newId) {
             reload(newId);
           }
@@ -167,7 +167,7 @@
         allianceId: '='
       },
       controller: ['$scope', 'AllianceService', function ($scope, AllianceService) {
-        $scope.$watch('allianceId', function (oldId, newId) {
+        $scope.$watch('allianceId', function (newId, oldId) {
           AllianceService.players(newId)
             .then(function (data) {
               $scope.alliancePlayers = data;
